@@ -4,7 +4,10 @@
   "description": "حاسبة درجات وموقف الطلاب",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve ."
+    "dev": "serve . -l tcp://0.0.0.0:3000 -s -n --no-port-switching",
+    "start": "serve . -l tcp://0.0.0.0:3000 -s -n --no-port-switching",
+    "build": "node -e \"const fs=require('fs'); if(!fs.existsSync('index.html')) process.exit(1); console.log('Static build verified: index.html');\"",
+    "lint": "node -e \"const fs=require('fs'); const html=fs.readFileSync('index.html','utf8'); const m=html.match(/<script>([\\s\\S]*?)<\\/script>/); if(!m) process.exit(1); new Function(m[1]); console.log('Syntax check passed');\""
   },
   "dependencies": {
     "serve": "^14.2.1"
