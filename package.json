@@ -1,0 +1,12 @@
+{
+  "name": "e3raf-mawqefak",
+  "version": "1.0.0",
+  "description": "حاسبة درجات وموقف الطلاب",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
