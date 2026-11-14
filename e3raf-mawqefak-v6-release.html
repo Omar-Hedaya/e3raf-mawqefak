@@ -1,0 +1,3623 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>اعرف موقفك | حاسبة الدرجات والـ GPA لطلاب الجامعات</title>
+<meta name="theme-color" content="#1e3a8a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link id="pwaManifestLink" rel="manifest" href="">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231e3a8a'/%3E%3Ctext x='50' y='67' font-size='54' text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-soft: #eff6ff;
+  --success: #16a34a;
+  --success-soft: #dcfce7;
+  --warning: #d97706;
+  --warning-soft: #fef3c7;
+  --danger: #dc2626;
+  --danger-soft: #fee2e2;
+  --purple: #7c3aed;
+  --purple-soft: #f3e8ff;
+  --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  --radius: 16px;
+}
+
+[data-theme="dark"] {
+  --bg: #0b1120;
+  --surface: #1e293b;
+  --surface-2: #0f172a;
+  --border: #334155;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-soft: rgba(59, 130, 246, 0.15);
+  --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.15);
+  --warning: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.15);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.15);
+  --purple: #a855f7;
+  --purple-soft: rgba(168, 85, 247, 0.15);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans Arabic', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.25s, color 0.25s;
+  padding-bottom: 80px;
+}
+
+/* Smart Alerts Banner */
+.smart-banner {
+  background: linear-gradient(90deg, #b91c1c, #dc2626);
+  color: #fff;
+  padding: 10px 16px;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 950;
+  box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+}
+.smart-banner.active { display: flex; }
+.smart-banner-actions { display: flex; align-items: center; gap: 8px; }
+.smart-banner-btn {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.close-x {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Header */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 900;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+.brand h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+.brand p {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.icon-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 11px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+.icon-btn:hover { border-color: var(--primary); color: var(--primary); }
+.icon-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.icon-btn.purple { background: var(--purple); color: #fff; border-color: var(--purple); }
+.icon-btn.success { background: var(--success); color: #fff; border-color: var(--success); }
+
+/* Container & Tabs */
+.container {
+  max-width: 960px;
+  margin: 16px auto;
+  padding: 0 14px;
+}
+.main-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: var(--surface);
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.nav-tab {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 10px 8px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.nav-tab.active {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+.tab-section { display: none; }
+.tab-section.active { display: block; }
+
+/* Subject Selector Bar */
+.subject-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+.subject-chip {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.subject-chip.active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.add-subject-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.card-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+/* Forms & Inputs */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 680px) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+input[type="text"], input[type="number"], input[type="date"], input[type="time"], select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+}
+input:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Hero Status Banner */
+.hero-banner {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero-main-num {
+  font-size: 2.1rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 4px 0;
+}
+.hero-badge {
+  background: rgba(255,255,255,0.18);
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  backdrop-filter: blur(4px);
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.hero-stat-box {
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+}
+.hero-stat-box span {
+  display: block;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+.hero-stat-box strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 900;
+  margin-top: 2px;
+}
+
+/* Preset Pills */
+.preset-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.preset-btn {
+  flex: 1;
+  min-width: 110px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.preset-btn.active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+/* Grace Box */
+.grace-box {
+  background: var(--warning-soft);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.grace-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--warning);
+  cursor: pointer;
+}
+
+/* Breakdown Item Box */
+.sub-item-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+.sub-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+.tbd-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--warning);
+  cursor: pointer;
+}
+.pair-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* Quiz Row */
+.quiz-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto auto;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+  background: var(--surface-2);
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 560px) {
+  .quiz-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* Custom Events / Schedules List */
+.event-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.event-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+.event-badge.urgent { background: var(--danger-soft); color: var(--danger); }
+.event-badge.soon { background: var(--warning-soft); color: var(--warning); }
+.event-badge.normal { background: var(--primary-soft); color: var(--primary); }
+.event-badge.tbd { background: var(--purple-soft); color: var(--purple); }
+
+/* Simulator & Grades Table */
+.sim-box {
+  background: var(--primary-soft);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.sim-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.sim-direct-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--primary);
+}
+.sim-direct-input input {
+  width: 72px;
+  padding: 4px 6px;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 900;
+  border: none;
+  background: transparent;
+}
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+  margin: 10px 0 4px;
+  cursor: pointer;
+}
+.grade-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  gap: 8px;
+}
+.grade-row:last-child { border-bottom: none; }
+.custom-target-box {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 1.5px dashed var(--primary);
+}
+.pill {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.78rem;
+}
+.pill-success { background: var(--success-soft); color: var(--success); }
+.pill-warning { background: var(--warning-soft); color: var(--warning); }
+.pill-danger { background: var(--danger-soft); color: var(--danger); }
+
+/* Absence Counter */
+.counter-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+.step-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 5;
+}
+.step-btn.plus { background: var(--danger-soft); color: var(--danger); border-color: rgba(220,38,38,0.3); }
+.step-btn:active { transform: scale(0.94); }
+
+/* Progress Milestones */
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+.milestone-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Modals */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 2000;
+}
+.modal-backdrop.open { display: flex; }
+.modal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+.modal-close {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* Toast Notification */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 92%;
+  max-width: 420px;
+}
+.toast {
+  background: #0f172a;
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Spotlight Tour */
+.tour-highlight {
+  position: relative;
+  z-index: 1800 !important;
+  box-shadow: 0 0 0 4px var(--primary), 0 0 0 9999px rgba(15, 23, 42, 0.72) !important;
+  border-radius: 16px;
+}
+.tour-popover {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 440px;
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  border-radius: 18px;
+  padding: 16px;
+  z-index: 1900;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  display: none;
+}
+.tour-popover.active { display: block; }
+
+/* Official Print Report Styles */
+#officialPrintReport {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 14mm;
+  }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    box-sizing: border-box !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    font-family: 'Noto Sans Arabic', sans-serif !important;
+  }
+
+  /* Hide interactive app UI during print */
+  header, .container, .smart-banner, .modal-backdrop, .toast-container, .tour-popover {
+    display: none !important;
+  }
+
+  /* Show Official Grade Sheet */
+  #officialPrintReport {
+    display: block !important;
+    width: 100% !important;
+    color: #0f172a !important;
+    background: #ffffff !important;
+  }
+
+  .opr-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2.5px solid #0f294a;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .opr-sub-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #475569;
+    margin: 0 0 4px 0;
+  }
+  .opr-main-title {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: #0f294a;
+    margin: 0;
+  }
+  .opr-badge {
+    background: #f1f5f9;
+    border: 1.5px solid #cbd5e1;
+    color: #0f294a;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+
+  .opr-student-box {
+    display: grid;
+    grid-template-columns: 1.3fr 0.8fr 1.3fr;
+    gap: 12px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .opr-stu-item span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 3px;
+  }
+  .opr-stu-item strong {
+    display: block;
+    font-size: 0.98rem;
+    font-weight: 900;
+    color: #0f172a;
+  }
+
+  .opr-sec-title {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #0f294a;
+    border-right: 4px solid #0f294a;
+    padding-right: 10px;
+    margin: 0 0 12px 0;
+  }
+
+  .opr-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+  .opr-table th {
+    background: #0f294a !important;
+    color: #ffffff !important;
+    font-weight: 800;
+    padding: 10px 6px;
+    border: 1px solid #0f294a;
+  }
+  .opr-table td {
+    padding: 9px 6px;
+    border: 1px solid #cbd5e1;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .opr-table tr:nth-child(even) td {
+    background: #f8fafc !important;
+  }
+  .opr-table td.opr-sub-col {
+    text-align: right;
+    padding-right: 10px;
+    font-weight: 800;
+    color: #0f294a;
+  }
+  .opr-table td.opr-highlight-col, .opr-table tr.opr-total-row td {
+    background: #e2e8f0 !important;
+    font-weight: 900;
+    color: #0f294a;
+  }
+
+  .opr-footnote {
+    font-size: 0.76rem;
+    color: #475569;
+    border-right: 3px solid #94a3b8;
+    padding-right: 8px;
+    margin: 8px 0 18px 0;
+    font-weight: 600;
+  }
+
+  .opr-gpa-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    background: #f1f5f9 !important;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .opr-gpa-summary span {
+    display: block;
+    font-size: 0.75rem;
+    color: #475569;
+    font-weight: 700;
+  }
+  .opr-gpa-summary strong {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #0f294a;
+    margin-top: 2px;
+  }
+
+  .opr-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 8px;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Smart Critical Alerts Banner -->
+<div id="smartBanner" class="smart-banner">
+  <span id="smartBannerText">⚠️ تنبيه هام</span>
+  <div class="smart-banner-actions">
+    <button type="button" class="smart-banner-btn" onclick="jumpToAlertSubject()">عرض المادة</button>
+    <button type="button" class="close-x" onclick="dismissSmartBanner()" title="إغلاق التنبيه">✕</button>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-logo">🎓</div>
+      <div>
+        <h1>اعرف موقفك</h1>
+        <p>حاسبة الدرجات والـ GPA لطلاب الجامعات</p>
+      </div>
+    </div>
+    <div class="header-tools">
+      <button type="button" class="icon-btn primary" onclick="startTour()">؟ جولة</button>
+      <button type="button" class="icon-btn" onclick="openGradingScaleModal()">⚙️ اللائحة</button>
+      <button type="button" class="icon-btn purple" onclick="openShareCardModal()">🖼️ كارت</button>
+      <button type="button" class="icon-btn success" onclick="openPrintOptionsModal()" title="تصدير كشف رسمي PDF">🖨️ كشف PDF</button>
+      <button type="button" class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="تبديل الوضع الليلي/النهاري">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Student Profile Card -->
+  <div class="card" id="studentProfileCard" style="padding:12px 16px; margin-bottom:14px;">
+    <div class="card-header" style="margin-bottom:10px;">
+      <h2 class="card-title">🪪 بيانات الطالب (تُحفظ تلقائياً وتظهر في كشف الطباعة وكارت المشاركة)</h2>
+    </div>
+    <div class="grid-4">
+      <div class="field">
+        <label>اسم الطالب</label>
+        <input type="text" id="stuName" placeholder="اكتب اسمك..." oninput="updateStudentInfo('name', this.value)">
+      </div>
+      <div class="field">
+        <label>رقم الجلوس</label>
+        <input type="text" id="stuSeat" placeholder="مثال: 1024" oninput="updateStudentInfo('seat', this.value)">
+      </div>
+      <div class="field">
+        <label>التخصص (أقسام الهندسة)</label>
+        <select id="stuDept" onchange="updateStudentInfo('dept', this.value)">
+          <option value="">-- اختر التخصص --</option>
+          <option value="إعدادي هندسة (عام)">إعدادي هندسة (عام)</option>
+          <option value="الهندسة الكهربائية والتحكم">الهندسة الكهربائية والتحكم</option>
+          <option value="هندسة الاتصالات">هندسة الاتصالات</option>
+          <option value="هندسة الالكترونيات">هندسة الالكترونيات</option>
+          <option value="هندسة القوى والآلات الكهربية">هندسة القوى والآلات الكهربية</option>
+          <option value="هندسة الحاسبات والنظم">هندسة الحاسبات والنظم</option>
+          <option value="هندسة القوى الميكانيكية">هندسة القوى الميكانيكية</option>
+          <option value="هندسة الإنتاج والتصميم الميكانيكي">هندسة الإنتاج والتصميم الميكانيكي</option>
+          <option value="هندسة الميكاترونيات">هندسة الميكاترونيات</option>
+          <option value="الهندسة المدنية (إنشاءات / أشغال عامة)">الهندسة المدنية (إنشاءات / أشغال عامة)</option>
+          <option value="الهندسة المعمارية">الهندسة المعمارية</option>
+          <option value="هندسة المساحة والجيوماتكس">هندسة المساحة والجيوماتكس</option>
+          <option value="الهندسة الصناعية والإدارية">الهندسة الصناعية والإدارية</option>
+          <option value="الهندسة الطبية والحيوية">الهندسة الطبية والحيوية</option>
+          <option value="الهندسة الكيميائية">الهندسة الكيميائية</option>
+          <option value="هندسة البترول والتعدين والفلزات">هندسة البترول والتعدين والفلزات</option>
+          <option value="هندسة الطيران والفضاء">هندسة الطيران والفضاء</option>
+          <option value="الهندسة البحرية وعمارة السفن">الهندسة البحرية وعمارة السفن</option>
+          <option value="الهندسة الزراعية">الهندسة الزراعية</option>
+          <option value="هندسة الغزل والنسيج">هندسة الغزل والنسيج</option>
+          <option value="الهندسة النووية والإشعاعية">الهندسة النووية والإشعاعية</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>الفرقة الدراسية</label>
+        <select id="stuYear" onchange="updateStudentInfo('year', this.value)">
+          <option value="">-- اختر الفرقة --</option>
+          <option value="الفرقة الإعدادية">الفرقة الإعدادية</option>
+          <option value="الفرقة الأولى">الفرقة الأولى</option>
+          <option value="الفرقة الثانية">الفرقة الثانية</option>
+          <option value="الفرقة الثالثة">الفرقة الثالثة</option>
+          <option value="الفرقة الرابعة">الفرقة الرابعة</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <nav class="main-nav" id="tour-nav">
+    <button type="button" class="nav-tab active" data-tab="subject" onclick="switchMainTab('subject')">📊 حساب المادة</button>
+    <button type="button" class="nav-tab" data-tab="radar" onclick="switchMainTab('radar')">🎯 رادار الامتحانات</button>
+    <button type="button" class="nav-tab" data-tab="gpa" onclick="switchMainTab('gpa')">🎓 الـ GPA والأرشيف</button>
+  </nav>
+
+  <!-- TAB 1: SUBJECT CALCULATOR -->
+  <section id="tab-subject" class="tab-section active">
+    <!-- Subject Chips -->
+    <div class="subject-bar" id="subjectBar"></div>
+
+    <!-- Subject Info, Quick Notes/Links & Custom Schedules -->
+    <div class="card" id="tour-subject-info">
+      <div class="grid-3">
+        <div class="field">
+          <label>اسم المادة</label>
+          <input type="text" id="subName" oninput="updateSubjectField('name', this.value)" placeholder="مثال: دوائر كهربية">
+        </div>
+        <div class="field">
+          <label>الساعات المعتمدة</label>
+          <select id="subCredits" onchange="updateSubjectField('credits', Number(this.value))">
+            <option value="1">1 ساعة</option>
+            <option value="2">2 ساعة</option>
+            <option value="3">3 ساعات</option>
+            <option value="4">4 ساعات</option>
+            <option value="5">5 ساعات</option>
+            <option value="6">6 ساعات</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>مشاركة وإدارة المادة</label>
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="icon-btn" style="flex:1; justify-content:center;" onclick="openBatchModal()" title="مشاركة أو استيراد مادة/ترم">📤 مشاركة/استيراد</button>
+            <button type="button" class="icon-btn" style="color:var(--danger);" onclick="deleteCurrentSubject()" title="حذف المادة">🗑️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Study Notes & Drive/Telegram Link -->
+      <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border);">
+        <div class="grid-2">
+          <div class="field">
+            <label>📝 ملاحظات سريعة (اسم الدكتور / المعيد / ميعاد السكشن)</label>
+            <input type="text" id="subNotes" oninput="updateSubjectField('notes', this.value)" placeholder="مثال: د. أحمد - سكشن الأحد 10 ص مدرج 2">
+          </div>
+          <div class="field">
+            <label>🔗 رابط الماتريال / درايف المحاضرات</label>
+            <div style="display:flex; gap:6px;">
+              <input type="text" id="subDriveLink" oninput="updateSubjectField('driveLink', this.value)" placeholder="https://drive.google.com/...">
+              <button type="button" class="icon-btn primary" onclick="openSubjectDriveLink()" title="فتح الرابط">فتح ↗</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Schedules / Events Manager -->
+      <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <span style="font-size:0.84rem; font-weight:800;">📅 مواعيد وتنبيهات المادة (كويز، ميد، فاينل...)</span>
+          <button type="button" class="icon-btn primary" onclick="openEventModal()">+ إضافة ميعاد / تنبيه</button>
+        </div>
+        <div id="subjectEventsList"></div>
+      </div>
+    </div>
+
+    <!-- Hero Status Card -->
+    <div class="hero-banner" id="tour-hero">
+      <div class="hero-top">
+        <div>
+          <div style="font-size:0.82rem; opacity:0.9; font-weight:700;" id="heroSubtitle">المطلوب في الفاينل لتعدي الصافي:</div>
+          <div class="hero-main-num" id="heroMainVal">22 / 60</div>
+          <div style="font-size:0.82rem; opacity:0.92; font-weight:700;" id="heroDesc">موقفك مطمئن — محتاج 36.7% من الفاينل</div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+          <span class="hero-badge" id="heroFunBadge">😎 في الأمان</span>
+          <span style="font-size:0.75rem; opacity:0.85; font-weight:700;" id="heroNextExamBadge">لا توجد مواعيد محددة</span>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-box">
+          <span>أعمال السنة الحالية</span>
+          <strong id="heroCwVal">28 / 40</strong>
+        </div>
+        <div class="hero-stat-box">
+          <span>لتحقيق الامتياز (A)</span>
+          <strong id="heroExcelVal">57 / 60</strong>
+        </div>
+        <div class="hero-stat-box">
+          <span>رصيد الغياب المتبقي</span>
+          <strong id="heroAbsVal">محاضرة 2</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grade Distribution & Grace Marks -->
+    <div class="card" id="tour-dist">
+      <div class="card-header">
+        <h2 class="card-title">نظام توزيع الدرجات والرأفة</h2>
+        <span class="pill pill-success" id="totalMaxBadge">المجموع: 100</span>
+      </div>
+      <div class="preset-row">
+        <button type="button" class="preset-btn" id="pre-40-60" onclick="applyDistPreset(40,60)">40 أعمال / 60 فاينل</button>
+        <button type="button" class="preset-btn" id="pre-30-70" onclick="applyDistPreset(30,70)">30 أعمال / 70 فاينل</button>
+        <button type="button" class="preset-btn" id="pre-50-50" onclick="applyDistPreset(50,50)">50 أعمال / 50 فاينل</button>
+        <button type="button" class="preset-btn" id="pre-custom" onclick="applyDistPreset(null,null)">توزيع مخصص</button>
+      </div>
+      <div class="grid-4">
+        <div class="field">
+          <label>درجة أعمال السنة</label>
+          <input type="number" id="cwMax" min="0" step="0.5" oninput="updateDistField('cwMax', this.value)">
+        </div>
+        <div class="field">
+          <label>درجة الفاينل</label>
+          <input type="number" id="finalMax" min="1" step="0.5" oninput="updateDistField('finalMax', this.value)">
+        </div>
+        <div class="field">
+          <label>نسبة النجاح بالمادة</label>
+          <select id="passPercent" onchange="updateDistField('passPercent', this.value)">
+            <option value="50">50% (النصف)</option>
+            <option value="60">60% (بعض الكليات)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>شرط الفاينل الأدنى</label>
+          <select id="finalMinPercent" onchange="updateDistField('finalMinPercent', this.value)">
+            <option value="0">بدون حد أدنى</option>
+            <option value="30">30% من الفاينل</option>
+            <option value="40">40% من الفاينل</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Grace Marks Simulator -->
+      <div class="grace-box">
+        <label class="grace-label">
+          <input type="checkbox" id="graceEnabled" onchange="toggleGrace(this.checked)">
+          <span>✨ تفعيل محاكي درجات الرأفة (إضافة درجات الرأفة للنجاح أو رفع التقدير)</span>
+        </label>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="font-size:0.76rem; font-weight:700;">نسبة الرأفة:</span>
+          <select id="gracePercent" style="width:auto; padding:5px 8px; font-size:0.8rem;" onchange="updateGracePercent(this.value)">
+            <option value="2">2%</option>
+            <option value="3">3%</option>
+            <option value="5">5%</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coursework Breakdown -->
+    <div class="card" id="tour-cw">
+      <div class="card-header">
+        <h2 class="card-title">حساب درجات أعمال السنة</h2>
+        <div style="display:flex; gap:6px;">
+          <button type="button" class="preset-btn" id="modeSimpleBtn" onclick="setCwMode('simple')">إدخال سريع</button>
+          <button type="button" class="preset-btn" id="modeDetailedBtn" onclick="setCwMode('detailed')">تقسيمة تفصيلية</button>
+        </div>
+      </div>
+
+      <!-- Simple CW Mode -->
+      <div id="cwSimpleArea" style="display:none;">
+        <div class="field">
+          <label>مجموع درجاتك في أعمال السنة حتى الآن</label>
+          <input type="number" id="cwSimpleScore" step="0.25" min="0" oninput="updateSimpleCw(this.value)">
+        </div>
+      </div>
+
+      <!-- Detailed CW Mode -->
+      <div id="cwDetailedArea">
+        <div class="grid-2">
+          <!-- Midterm 1 -->
+          <div class="sub-item-box">
+            <div class="sub-item-header">
+              <span>الميدتيرم الأول</span>
+              <label class="tbd-check">
+                <input type="checkbox" id="mid1Tbd" onchange="updateBreakdown('mid1', 'tbd', this.checked)"> لسه مامتحناش
+              </label>
+            </div>
+            <div class="pair-inputs">
+              <input type="number" id="mid1Score" placeholder="درجتك" step="0.25" min="0" oninput="updateBreakdown('mid1', 'score', this.value)">
+              <input type="number" id="mid1Max" placeholder="العظمى" step="0.5" min="0" oninput="updateBreakdown('mid1', 'max', this.value)">
+            </div>
+          </div>
+
+          <!-- Midterm 2 -->
+          <div class="sub-item-box">
+            <div class="sub-item-header">
+              <span>الميدتيرم الثاني</span>
+              <label class="tbd-check">
+                <input type="checkbox" id="mid2Tbd" onchange="updateBreakdown('mid2', 'tbd', this.checked)"> غير محدد / لسه
+              </label>
+            </div>
+            <div class="pair-inputs">
+              <input type="number" id="mid2Score" placeholder="درجتك" step="0.25" min="0" oninput="updateBreakdown('mid2', 'score', this.value)">
+              <input type="number" id="mid2Max" placeholder="العظمى" step="0.5" min="0" oninput="updateBreakdown('mid2', 'max', this.value)">
+            </div>
+          </div>
+
+          <!-- Sheets / Practical -->
+          <div class="sub-item-box">
+            <div class="sub-item-header">
+              <span>الشيتات / العملي</span>
+              <label class="tbd-check">
+                <input type="checkbox" id="sheetsTbd" onchange="updateBreakdown('sheets', 'tbd', this.checked)"> غير محدد
+              </label>
+            </div>
+            <div class="pair-inputs">
+              <input type="number" id="sheetsScore" placeholder="درجتك" step="0.25" min="0" oninput="updateBreakdown('sheets', 'score', this.value)">
+              <input type="number" id="sheetsMax" placeholder="العظمى" step="0.5" min="0" oninput="updateBreakdown('sheets', 'max', this.value)">
+            </div>
+          </div>
+
+          <!-- Bonus -->
+          <div class="sub-item-box">
+            <div class="sub-item-header">
+              <span>درجات بونص / حضور</span>
+            </div>
+            <input type="number" id="bonusScore" placeholder="0" step="0.25" min="0" oninput="updateBonus(this.value)">
+          </div>
+        </div>
+
+        <!-- Quizzes Section (Default: Sum all quizzes automatically) -->
+        <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border);">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+            <span style="font-size:0.82rem; font-weight:800;">الكويزات (يتم جمع درجات الكويزات تلقائياً):</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <select id="bestQuizzesCount" style="width:auto; padding:6px 10px; font-size:0.78rem;" onchange="updateBestQuizzes(this.value)">
+                <option value="0" selected>جمع كل الكويزات (تلقائي)</option>
+                <option value="1">أحسن 1 كويز</option>
+                <option value="2">أحسن 2 كويز</option>
+                <option value="3">أحسن 3 كويزات</option>
+                <option value="4">أحسن 4 كويزات</option>
+              </select>
+              <button type="button" class="icon-btn primary" onclick="addQuiz()">+ كويز</button>
+            </div>
+          </div>
+          <div id="quizzesContainer"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; display:flex; align-items:center; justify-content:space-between; font-size:0.84rem; font-weight:800; color:var(--primary);">
+        <span id="cwSummaryText">المضمون من الممتحن: 0 / 40</span>
+        <span id="tbdRemainingText" style="color:var(--warning); font-size:0.78rem;"></span>
+      </div>
+
+      <!-- Grade History / Milestones -->
+      <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:0.82rem; font-weight:800;">📈 سجل تطور درجاتك في المادة</span>
+          <span class="pill pill-success" id="milestoneCountBadge">0 محطات</span>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="milestoneNoteInput" placeholder="مثال: بعد الميدتيرم الأول" style="flex:1;">
+          <button type="button" class="icon-btn purple" id="addMilestoneBtn" onclick="addMilestone()">+ تسجيل محطة</button>
+        </div>
+        <div id="milestonesList" class="milestone-list"></div>
+      </div>
+    </div>
+
+    <!-- Final Target & What-If Simulator -->
+    <div class="card" id="tour-sim">
+      <div class="card-header">
+        <h2 class="card-title">الدرجة المطلوبة في الفاينل لكل تقدير</h2>
+      </div>
+
+      <div class="sim-box">
+        <div style="display:flex; align-items:center; justify-content:space-between; font-size:0.84rem; font-weight:800;">
+          <span>🎛️ محاكي السيناريوهات (لو جبت كام في الفاينل؟)</span>
+          <span class="pill pill-success" id="simGradeBadge">جيد جداً (B)</span>
+        </div>
+        <input type="range" id="simSlider" min="0" max="60" step="0.5" oninput="updateSimSlider(this.value)">
+        <div class="sim-controls-row">
+          <div class="sim-direct-input">
+            <span style="font-size:0.76rem; font-weight:800; color:var(--text-muted);">درجة الفاينل:</span>
+            <input type="number" id="simFinalInput" min="0" step="0.5" oninput="updateSimDirectInput(this.value)">
+            <span style="font-size:0.85rem; font-weight:900;" id="simFinalMaxLabel">/ 60</span>
+          </div>
+          <span style="font-size:0.85rem; font-weight:900;" id="simTotalDisplay">مجموعك النهائي المتوقع: 70 / 100 (70%)</span>
+        </div>
+      </div>
+
+      <div id="gradesTargetList"></div>
+
+      <!-- Custom Target Calculator (Includes Minus Grades: A-, B-, C-, D-) -->
+      <div class="custom-target-box">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+          <span style="font-size:0.84rem; font-weight:800; color:var(--primary);">🎯 تخصيص هدف محدد (نسبة مئوية / تقدير / GPA)</span>
+          <label class="tbd-check" style="font-size:0.78rem; color:var(--text);">
+            <input type="checkbox" id="customTargetEnabled" onchange="toggleCustomTarget(this.checked)"> تفعيل الهدف المخصص
+          </label>
+        </div>
+        <div id="customTargetControls" style="display:none;">
+          <div class="grid-2" style="margin-bottom:8px;">
+            <div class="field">
+              <label>نوع الهدف</label>
+              <select id="customTargetType" onchange="updateCustomTarget()">
+                <option value="percent">نسبة مئوية محددة (%)</option>
+                <option value="grade">تقدير محدد (A+, A, A-, B+, B, B-...)</option>
+                <option value="gpa">نقاط GPA للمادة (من 4.0)</option>
+              </select>
+            </div>
+            <div class="field" id="customTargetValContainer">
+              <label id="customTargetValLabel">النسبة المئوية المطلوبة (%)</label>
+              <input type="number" id="customTargetVal" step="0.5" min="0" max="100" value="88" oninput="saveCustomTargetVal(this.value)">
+            </div>
+          </div>
+          <div id="customTargetResult" class="grade-row" style="background:var(--surface); border-radius:10px; border:1px solid var(--border);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Absence Counter -->
+    <div class="card" id="tour-abs">
+      <div class="card-header">
+        <h2 class="card-title">عدّاد الغياب والحرمان</h2>
+        <span class="pill pill-success" id="absStatusPill">وضعك آمن</span>
+      </div>
+      <div class="grid-3">
+        <div class="field">
+          <label>إجمالي محاضرات/سكاشن الترم</label>
+          <input type="number" id="totalLectures" min="1" oninput="updateAbsenceField('totalLectures', this.value)">
+        </div>
+        <div class="field">
+          <label>نسبة الحرمان باللائحة (%)</label>
+          <input type="number" id="deprivationPercent" min="1" max="100" oninput="updateAbsenceField('deprivationPercent', this.value)">
+        </div>
+        <div class="field">
+          <label>مرات غيابك المسجلة</label>
+          <div class="counter-box">
+            <button type="button" class="step-btn plus" onclick="stepAbsence(1)">+</button>
+            <strong style="font-size:1.2rem; font-weight:900;" id="absCountDisplay">0</strong>
+            <button type="button" class="step-btn" onclick="stepAbsence(-1)">-</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: EXAM RADAR -->
+  <section id="tab-radar" class="tab-section">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">🎯 رادار الامتحانات وترتيب الأولويات</h2>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <button type="button" class="icon-btn primary" onclick="exportCalendarIcs()" title="إضافة كل المواعيد لتقويم الموبايل">📅 تصدير للتقويم (.ics)</button>
+          <span class="pill pill-warning" id="radarCountBadge">0 مواعيد</span>
+        </div>
+      </div>
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0;">يرتب كل مواعيدك وامتحاناتك تلقائياً حسب القرب ودرجة خطورة أعمال السنة.</p>
+      <div id="radarList"></div>
+    </div>
+  </section>
+
+  <!-- TAB 3: GPA, RESCUE & ARCHIVE -->
+  <section id="tab-gpa" class="tab-section">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">🎓 حاسبة المعدل التراكمي (GPA Predictor)</h2>
+        <select id="uniSystemSelect" style="width:auto; font-size:0.78rem;" onchange="changeUniSystem(this.value)">
+          <option value="gpa4">نظام الساعات المعتمدة (من 4.0)</option>
+          <option value="percent">نظام النسب المئوية العام (%)</option>
+        </select>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:14px;">
+        <div class="field">
+          <label>المعدل التراكمي السابق (CGPA)</label>
+          <input type="number" id="prevGpa" step="0.01" min="0" max="4" placeholder="مثال: 2.85" oninput="updateGpaSettings('prevGpa', this.value)">
+        </div>
+        <div class="field">
+          <label>إجمالي الساعات المنجزة سابقاً</label>
+          <input type="number" id="prevCredits" step="1" min="0" placeholder="مثال: 36" oninput="updateGpaSettings('prevCredits', this.value)">
+        </div>
+      </div>
+
+      <div class="hero-banner" style="margin-bottom:14px;">
+        <div class="hero-stats" style="margin-top:0; padding-top:0; border-top:none;">
+          <div class="hero-stat-box">
+            <span>المعدل الفصلي المتوقع</span>
+            <strong id="semGpaVal">0.00</strong>
+          </div>
+          <div class="hero-stat-box">
+            <span>المعدل التراكمي الجديد</span>
+            <strong id="newCgpaVal">0.00</strong>
+          </div>
+          <div class="hero-stat-box">
+            <span>ساعات الترم الحالي</span>
+            <strong id="semCreditsVal">0 ساعة</strong>
+          </div>
+        </div>
+      </div>
+
+      <div id="gpaSubjectsTable"></div>
+    </div>
+
+    <!-- Cross-Subject Rescue Balancer -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">🛟 حاسبة التعويض والإنقاذ بين المواد</h2>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>المعدل الفصلي المستهدف</label>
+          <input type="number" id="targetSemGpa" step="0.05" min="0" max="4" value="3.00" oninput="renderGpaTab()">
+        </div>
+        <div class="field">
+          <label>المادة اللي ناوي تعوّض فيها</label>
+          <select id="rescueSubjectSelect" onchange="renderGpaTab()"></select>
+        </div>
+      </div>
+      <div id="rescueResultBox" style="margin-top:12px; padding:12px; border-radius:12px; background:var(--primary-soft); font-size:0.84rem; font-weight:700;"></div>
+    </div>
+
+    <!-- Multi-Semester Archive -->
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">🗄️ أرشيف الأترام السابقة</h2>
+      </div>
+      <div style="display:flex; gap:8px; margin-bottom:12px;">
+        <input type="text" id="archiveSemName" placeholder="اسم الترم (مثال: تانية ترم أول)">
+        <button type="button" class="icon-btn success" onclick="archiveCurrentSemester()">📦 أرشفة الترم وبدء ترم جديد</button>
+      </div>
+      <div id="archiveList"></div>
+    </div>
+  </section>
+  <!-- App Footer -->
+  <footer class="no-print" style="text-align:center; padding:18px 10px 8px; color:var(--text-muted); font-size:0.78rem; border-top:1px solid var(--border); margin-top:20px;">
+    <div style="font-weight:800; color:var(--text); margin-bottom:4px;">🎓 اعرف موقفك — رفيقك الذكي في الجامعة</div>
+    <div>
+      عندك اقتراح أو تعديل في لائحة كليتك؟
+      <a href="https://t.me/ai_summary_help" target="_blank" rel="noopener" style="color:var(--primary); font-weight:800; text-decoration:none;">تواصل معنا عبر تليجرام ↗</a>
+    </div>
+  </footer>
+</div>
+
+<!-- MODAL: Add Custom Event / Schedule -->
+<div id="eventModal" class="modal-backdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="margin:0; font-size:1rem; font-weight:900;">📅 إضافة ميعاد أو تنبيه للمادة</h3>
+      <button type="button" class="modal-close" onclick="closeModal('eventModal')">✕</button>
+    </div>
+    <div class="field" style="margin-bottom:10px;">
+      <label>نوع / اسم الميعاد</label>
+      <input type="text" id="evTitleInput" placeholder="مثال: امتحان الفاينل، كويز 2، ميدتيرم، تسليم شيت...">
+    </div>
+    <div class="preset-row">
+      <button type="button" class="preset-btn" onclick="document.getElementById('evTitleInput').value='امتحان الفاينل'">امتحان الفاينل</button>
+      <button type="button" class="preset-btn" onclick="document.getElementById('evTitleInput').value='الميدتيرم'">الميدتيرم</button>
+      <button type="button" class="preset-btn" onclick="document.getElementById('evTitleInput').value='كويز'">كويز</button>
+      <button type="button" class="preset-btn" onclick="document.getElementById('evTitleInput').value='تسليم شيت'">تسليم شيت</button>
+    </div>
+    <div style="margin-bottom:10px;">
+      <label class="tbd-check" style="font-size:0.82rem;">
+        <input type="checkbox" id="evTbdCheck" onchange="toggleEventDateInputs(this.checked)"> التاريخ غير محدد حالياً (لسه متحددش)
+      </label>
+    </div>
+    <div class="grid-2" id="evDateTimeRow" style="margin-bottom:12px;">
+      <div class="field">
+        <label>التاريخ</label>
+        <input type="date" id="evDateInput">
+      </div>
+      <div class="field">
+        <label>الوقت (اختياري)</label>
+        <input type="time" id="evTimeInput">
+      </div>
+    </div>
+    <div class="field" style="margin-bottom:14px;">
+      <label>ملاحظة أو مكان اللجنة (اختياري)</label>
+      <input type="text" id="evNoteInput" placeholder="مثال: مدرج 3 - الساعة 10 صباحاً">
+    </div>
+    <button type="button" class="icon-btn primary" style="width:100%; justify-content:center; padding:12px;" onclick="saveCustomEvent()">حفظ الميعاد</button>
+  </div>
+</div>
+
+<!-- MODAL: Batch Share & Backup -->
+<div id="batchModal" class="modal-backdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="margin:0; font-size:1rem; font-weight:900;">👥 مشاركة الدفعة والنسخ الاحتياطي</h3>
+      <button type="button" class="modal-close" onclick="closeModal('batchModal')">✕</button>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <h4 style="margin:0 0 6px; font-size:0.88rem;">1️⃣ مشاركة رابط مباشر للدفعة (بدون درجاتك)</h4>
+      <p style="font-size:0.76rem; color:var(--text-muted); margin:0 0 8px;">انسخ الرابط وابعته على جروب الدفعة؛ بمجرد ما زميلك يفتحه هيتحمّل عنده المواد والتقسيمة والمواعيد تلقائياً.</p>
+      <div class="grid-2">
+        <button type="button" class="icon-btn primary" style="justify-content:center;" onclick="copySemesterLink()">🔗 نسخ رابط الترم الكامل</button>
+        <button type="button" class="icon-btn" style="justify-content:center;" onclick="copySubjectLink()">📘 نسخ رابط المادة الحالية</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px; padding-top:12px; border-top:1px solid var(--border);">
+      <h4 style="margin:0 0 6px; font-size:0.88rem;">2️⃣ استيراد كود أو رابط من زميلك</h4>
+      <textarea id="importCodeInput" rows="2" placeholder="الصق الرابط أو الكود هنا..."></textarea>
+      <button type="button" class="icon-btn purple" style="width:100%; justify-content:center; margin-top:8px;" onclick="importSharedCode()">📥 استيراد البيانات</button>
+    </div>
+
+    <div style="padding-top:12px; border-top:1px solid var(--border);">
+      <h4 style="margin:0 0 6px; font-size:0.88rem;">3️⃣ النسخ الاحتياطي الشخصي (ملف JSON)</h4>
+      <div class="grid-2">
+        <button type="button" class="icon-btn" style="justify-content:center;" onclick="exportBackupJson()">⬇️ تحميل نسخة احتياطية</button>
+        <label class="icon-btn" style="justify-content:center; cursor:pointer;">
+          ⬆️ استرجاع من ملف
+          <input type="file" accept=".json" style="display:none;" onchange="importBackupJson(event)">
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Shareable Story Card -->
+<div id="shareCardModal" class="modal-backdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="margin:0; font-size:1rem; font-weight:900;">🖼️ كارت المشاركة للستوري والجروبات</h3>
+      <button type="button" class="modal-close" onclick="closeModal('shareCardModal')">✕</button>
+    </div>
+    <div class="preset-row">
+      <button type="button" class="preset-btn active" id="cardTypeSub" onclick="setShareCardType('subject')">كارت المادة الحالية</button>
+      <button type="button" class="preset-btn" id="cardTypeSem" onclick="setShareCardType('semester')">كارت ملخص الترم والـ GPA</button>
+    </div>
+    <div id="semHideGradesRow" style="display:none; margin-bottom:10px;">
+      <label class="tbd-check" style="font-size:0.8rem; color:var(--text);">
+        <input type="checkbox" id="hideSubDetailsCheck" checked onchange="renderShareCanvas()"> إخفاء درجات المواد التفصيلية (عرض الـ GPA فقط)
+      </label>
+    </div>
+    <div style="text-align:center; background:var(--surface-2); padding:10px; border-radius:14px; border:1px solid var(--border); margin-bottom:12px;">
+      <canvas id="shareCanvas" width="540" height="540" style="max-width:100%; border-radius:12px;"></canvas>
+    </div>
+    <button type="button" class="icon-btn primary" style="width:100%; justify-content:center; padding:12px;" onclick="downloadShareCard()">⬇️ حفظ الصورة على الموبايل</button>
+  </div>
+</div>
+
+<!-- MODAL: Welcome / Onboarding -->
+<div id="welcomeModal" class="modal-backdrop">
+  <div class="modal-card" style="text-align:center;">
+    <div style="font-size:2.5rem; margin-bottom:6px;">🎓</div>
+    <h2 style="margin:0 0 6px; font-size:1.2rem; font-weight:900;">أهلاً بيك في «اعرف موقفك»</h2>
+    <p style="font-size:0.84rem; color:var(--text-muted); line-height:1.6;">أداتك الذكية لحساب درجات أعمال السنة، الدرجة المطلوبة في الفاينل لكل تقدير، الغياب، والمعدل التراكمي.</p>
+    <div style="display:flex; flex-direction:column; gap:8px; margin-top:16px;">
+      <button type="button" class="icon-btn primary" style="justify-content:center; padding:12px;" onclick="closeModal('welcomeModal'); startTour();">🚀 ابدأ الجولة السريعة (30 ثانية)</button>
+      <button type="button" class="icon-btn purple" style="justify-content:center; padding:12px;" onclick="loadDemoData()">✨ جرب مثال حي (4 مواد جاهزة)</button>
+      <button type="button" class="icon-btn" style="justify-content:center;" onclick="closeModal('welcomeModal')">ابدأ إدخال موادي بنفسي</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: University Grading Scale Customization -->
+<div id="gradingScaleModal" class="modal-backdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="margin:0; font-size:1rem; font-weight:900;">⚙️ تخصيص لائحة التقديرات والـ GPA</h3>
+      <button type="button" class="modal-close" onclick="closeModal('gradingScaleModal')">✕</button>
+    </div>
+    <p style="font-size:0.78rem; color:var(--text-muted); margin-top:0;">عدّل الحد الأدنى للنسبة المئوية والنقاط لكل تقدير حسب لائحة كليتك، وسيتم تحديث كل الحسابات فوراً.</p>
+    <div class="preset-row">
+      <button type="button" class="preset-btn" onclick="applyGradeScalePreset('standard')">اللائحة القياسية (A+ من 95%)</button>
+      <button type="button" class="preset-btn" onclick="applyGradeScalePreset('strict')">لائحة مشددة (A+ من 97%)</button>
+      <button type="button" class="preset-btn" onclick="applyGradeScalePreset('classic')">لائحة امتياز من 85% (A)</button>
+    </div>
+    <div id="gradingScaleEditorList" style="max-height:320px; overflow-y:auto; border:1px solid var(--border); border-radius:12px; padding:8px; margin-bottom:12px;"></div>
+    <button type="button" class="icon-btn primary" style="width:100%; justify-content:center; padding:12px;" onclick="saveCustomGradeScale()">💾 حفظ اللائحة وتطبيقها</button>
+  </div>
+</div>
+
+<!-- MODAL: Print / PDF Export Options -->
+<div id="printOptionsModal" class="modal-backdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="margin:0; font-size:1rem; font-weight:900;">🖨️ إعدادات تصدير كشف الدرجات (PDF)</h3>
+      <button type="button" class="modal-close" onclick="closeModal('printOptionsModal')">✕</button>
+    </div>
+    <div class="field" style="margin-bottom:10px;">
+      <label>نوع الكشف المطلوب طباعته</label>
+      <select id="printReportType">
+        <option value="mid1">1️⃣ كشف درجات الميدتيرم الأول فقط (جدول أفقي للمواد)</option>
+        <option value="mid2">2️⃣ كشف درجات الميدتيرم الثاني فقط</option>
+        <option value="cw">3️⃣ كشف درجات أعمال السنة التفصيلي</option>
+        <option value="full" selected>4️⃣ التقرير الشامل (أعمال السنة + الفاينل + الـ GPA)</option>
+      </select>
+    </div>
+    <div class="grid-2" style="margin-bottom:14px;">
+      <div class="field">
+        <label>عنوان الكشف</label>
+        <input type="text" id="printCustomTitle" value="كشف درجات أعمال السنة والموقف الدراسي">
+      </div>
+      <div class="field">
+        <label>بادج الفصل الدراسي</label>
+        <input type="text" id="printTermBadge" value="الترم الأول">
+      </div>
+    </div>
+    <button type="button" class="icon-btn success" style="width:100%; justify-content:center; padding:12px;" onclick="executeSelectedPrint()">🖨️ معاينة وطباعة / حفظ PDF</button>
+  </div>
+</div>
+
+<!-- Interactive Spotlight Tour Popover -->
+<div id="tourPopover" class="tour-popover">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+    <span class="pill pill-success" id="tourStepBadge">خطوة 1 من 6</span>
+    <button type="button" class="modal-close" onclick="endTour()">✕</button>
+  </div>
+  <h4 id="tourTitle" style="margin:0 0 6px; font-size:0.95rem; font-weight:900;">عنوان الخطوة</h4>
+  <p id="tourText" style="margin:0 0 12px; font-size:0.82rem; color:var(--text-muted); line-height:1.5;">شرح الخطوة</p>
+  <div style="display:flex; justify-content:space-between; gap:8px;">
+    <button type="button" class="icon-btn" onclick="prevTourStep()">السابق</button>
+    <button type="button" class="icon-btn primary" id="tourNextBtn" onclick="nextTourStep()">التالي ⬅️</button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- Dedicated Official Grade Sheet for Print / PDF -->
+<div id="officialPrintReport"></div>
+
+<script>
+const STORAGE_KEY = 'e3raf_mawqefak_v6_data';
+
+function createDefaultSubject(name = 'مادة جديدة', credits = 3) {
+  return {
+    id: 'sub_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+    name,
+    credits,
+    cwMax: 40,
+    finalMax: 60,
+    passPercent: 50,
+    finalMinPercent: 30,
+    graceEnabled: false,
+    gracePercent: 3,
+    cwMode: 'detailed',
+    cwSimpleScore: 0,
+    breakdown: {
+      mid1: { score: '', max: 15, tbd: false },
+      mid2: { score: '', max: 10, tbd: true },
+      sheets: { score: '', max: 10, tbd: false },
+      bonus: 0,
+      bestQuizzes: 0, // Default: Sum all quizzes automatically
+      quizzes: [
+        { id: 'q1', name: 'كويز 1', score: '', max: 5, tbd: false },
+        { id: 'q2', name: 'كويز 2', score: '', max: 5, tbd: true }
+      ]
+    },
+    events: [],
+    milestones: [],
+    simFinal: 35,
+    customTarget: {
+      enabled: false,
+      type: 'percent',
+      val: 88
+    },
+    notes: '',
+    driveLink: '',
+    totalLectures: 14,
+    deprivationPercent: 25,
+    absences: 0
+  };
+}
+
+let state = {
+  theme: 'light',
+  uniSystem: 'gpa4',
+  studentInfo: { name: '', seat: '', dept: '', year: '' },
+  prevGpa: 0,
+  prevCredits: 0,
+  activeSubjectId: null,
+  dismissedAlertKey: '',
+  onboarded: false,
+  subjects: [],
+  archive: []
+};
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      state = { ...state, ...parsed };
+    }
+  } catch (e) {}
+  if (!state.subjects || state.subjects.length === 0) {
+    const s1 = createDefaultSubject('Principle of Electrical Engineering', 3);
+    s1.breakdown.mid1 = { score: 12, max: 15, tbd: false };
+    s1.breakdown.sheets = { score: 8, max: 10, tbd: false };
+    s1.breakdown.quizzes[0] = { id: 'q1', name: 'كويز 1', score: 4, max: 5, tbd: false };
+    state.subjects = [s1];
+    state.activeSubjectId = s1.id;
+  }
+  if (!state.activeSubjectId || !state.subjects.find(s => s.id === state.activeSubjectId)) {
+    state.activeSubjectId = state.subjects[0].id;
+  }
+}
+
+function getActiveSubject() {
+  const sub = state.subjects.find(s => s.id === state.activeSubjectId) || state.subjects[0];
+  if (!sub.customTarget) sub.customTarget = { enabled: false, type: 'percent', val: 88 };
+  return sub;
+}
+
+// Toast with Close (X) Button
+function showToast(msg, duration = 4000) {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `<span>${msg}</span><button type="button" class="close-x" aria-label="إغلاق">✕</button>`;
+  const closeBtn = el.querySelector('.close-x');
+  closeBtn.onclick = () => el.remove();
+  container.appendChild(el);
+  if (duration > 0) {
+    setTimeout(() => { if (el.parentNode) el.remove(); }, duration);
+  }
+}
+
+// Theme Toggle
+function toggleTheme() {
+  state.theme = state.theme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', state.theme);
+  document.getElementById('themeBtn').textContent = state.theme === 'light' ? '🌙' : '☀️';
+  saveState();
+}
+
+// Main Tabs
+function switchMainTab(tabName) {
+  document.querySelectorAll('.nav-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tabName);
+  });
+  document.querySelectorAll('.tab-section').forEach(sec => {
+    sec.classList.toggle('active', sec.id === 'tab-' + tabName);
+  });
+  if (tabName === 'radar') renderRadar();
+  if (tabName === 'gpa') renderGpaTab();
+}
+
+// Calculations Engine
+function calculateSubjectStats(sub) {
+  const cwMax = Number(sub.cwMax) || 0;
+  const finalMax = Number(sub.finalMax) || 60;
+  const totalMax = cwMax + finalMax;
+
+  let earnedCw = 0;
+  let testedCwMax = 0;
+  let tbdCwMax = 0;
+
+  if (sub.cwMode === 'simple') {
+    earnedCw = Number(sub.cwSimpleScore) || 0;
+    testedCwMax = cwMax;
+  } else {
+    const b = sub.breakdown;
+    const m1Max = Number(b.mid1.max) || 0;
+    if (b.mid1.tbd) { tbdCwMax += m1Max; }
+    else { earnedCw += Number(b.mid1.score) || 0; testedCwMax += m1Max; }
+
+    const m2Max = Number(b.mid2.max) || 0;
+    if (b.mid2.tbd) { tbdCwMax += m2Max; }
+    else { earnedCw += Number(b.mid2.score) || 0; testedCwMax += m2Max; }
+
+    const shMax = Number(b.sheets.max) || 0;
+    if (b.sheets.tbd) { tbdCwMax += shMax; }
+    else { earnedCw += Number(b.sheets.score) || 0; testedCwMax += shMax; }
+
+    const quizzes = b.quizzes || [];
+    const bestN = Number(b.bestQuizzes) || 0;
+    const activeQuizzes = quizzes.filter(q => !q.tbd);
+    const tbdQuizzes = quizzes.filter(q => q.tbd);
+
+    if (bestN > 0) {
+      const sortedActive = [...activeQuizzes].sort((a, z) => (Number(z.score) || 0) - (Number(a.score) || 0));
+      const takenCount = Math.min(bestN, sortedActive.length);
+      for (let i = 0; i < takenCount; i++) {
+        earnedCw += Number(sortedActive[i].score) || 0;
+        testedCwMax += Number(sortedActive[i].max) || 0;
+      }
+      const remainingSlots = Math.max(0, bestN - takenCount);
+      for (let i = 0; i < Math.min(remainingSlots, tbdQuizzes.length); i++) {
+        tbdCwMax += Number(tbdQuizzes[i].max) || 0;
+      }
+    } else {
+      activeQuizzes.forEach(q => {
+        earnedCw += Number(q.score) || 0;
+        testedCwMax += Number(q.max) || 0;
+      });
+      tbdQuizzes.forEach(q => {
+        tbdCwMax += Number(q.max) || 0;
+      });
+    }
+
+    earnedCw += Number(b.bonus) || 0;
+  }
+
+  const graceMarks = sub.graceEnabled ? (totalMax * (Number(sub.gracePercent) || 0) / 100) : 0;
+  const passTotal = totalMax * ((Number(sub.passPercent) || 50) / 100);
+  const finalMinRequired = finalMax * ((Number(sub.finalMinPercent) || 0) / 100);
+
+  let reqFinalPass = Math.max(0, passTotal - earnedCw - graceMarks);
+  reqFinalPass = Math.max(reqFinalPass, finalMinRequired);
+
+  const reqFinalExcel = Math.max(0, (totalMax * 0.85) - earnedCw - graceMarks);
+
+  const totLec = Math.max(1, Number(sub.totalLectures) || 14);
+  const depPct = Number(sub.deprivationPercent) || 25;
+  const maxAllowedAbs = Math.floor(totLec * (depPct / 100));
+  const abs = Number(sub.absences) || 0;
+  const remainingAbs = maxAllowedAbs - abs;
+
+  return {
+    cwMax,
+    finalMax,
+    totalMax,
+    earnedCw: Math.round(earnedCw * 100) / 100,
+    testedCwMax,
+    tbdCwMax,
+    graceMarks,
+    passTotal,
+    finalMinRequired,
+    reqFinalPass: Math.round(reqFinalPass * 10) / 10,
+    reqFinalExcel: Math.round(reqFinalExcel * 10) / 10,
+    maxAllowedAbs,
+    abs,
+    remainingAbs
+  };
+}
+
+const DEFAULT_GRADE_SCALE = [
+  { letter: 'A+', minPct: 95, gpa: 4.0, label: 'امتياز مرتفع', cls: 'pill-success' },
+  { letter: 'A',  minPct: 90, gpa: 4.0, label: 'امتياز', cls: 'pill-success' },
+  { letter: 'A-', minPct: 85, gpa: 3.7, label: 'امتياز منخفض', cls: 'pill-success' },
+  { letter: 'B+', minPct: 80, gpa: 3.3, label: 'جيد جداً مرتفع', cls: 'pill-success' },
+  { letter: 'B',  minPct: 75, gpa: 3.0, label: 'جيد جداً', cls: 'pill-success' },
+  { letter: 'B-', minPct: 70, gpa: 2.7, label: 'جيد جداً منخفض', cls: 'pill-warning' },
+  { letter: 'C+', minPct: 67, gpa: 2.3, label: 'جيد مرتفع', cls: 'pill-warning' },
+  { letter: 'C',  minPct: 63, gpa: 2.0, label: 'جيد', cls: 'pill-warning' },
+  { letter: 'C-', minPct: 60, gpa: 1.7, label: 'جيد منخفض', cls: 'pill-warning' },
+  { letter: 'D+', minPct: 56, gpa: 1.3, label: 'مقبول مرتفع', cls: 'pill-warning' },
+  { letter: 'D',  minPct: 53, gpa: 1.0, label: 'مقبول', cls: 'pill-warning' },
+  { letter: 'D-', minPct: 50, gpa: 0.7, label: 'مقبول منخفض', cls: 'pill-warning' }
+];
+
+function getGradeScale() {
+  if (Array.isArray(state.customGradeScale) && state.customGradeScale.length === DEFAULT_GRADE_SCALE.length) {
+    return state.customGradeScale;
+  }
+  return DEFAULT_GRADE_SCALE;
+}
+
+function getGradeInfo(percent, passPercent = 50) {
+  if (percent < (Number(passPercent) || 50)) {
+    return { letter: 'F', minPct: 0, label: 'راسب', gpa: 0.0, cls: 'pill-danger' };
+  }
+  for (const g of getGradeScale()) {
+    if (percent >= g.minPct) return g;
+  }
+  return { letter: 'F', minPct: 0, label: 'راسب', gpa: 0.0, cls: 'pill-danger' };
+}
+
+function getMinPercentForGradeLetter(letter) {
+  const found = getGradeScale().find(g => g.letter === letter);
+  return found ? found.minPct : 50;
+}
+
+function getMinPercentForGpa(gpaVal) {
+  const g = Number(gpaVal) || 0;
+  for (const item of getGradeScale()) {
+    if (g >= item.gpa) return item.minPct;
+  }
+  return 0;
+}
+
+function getFunBadge(stats) {
+  const ratio = stats.finalMax > 0 ? (stats.reqFinalPass / stats.finalMax) : 1;
+  if (stats.reqFinalPass > stats.finalMax) return '🆘 وضع السير على الصراط';
+  if (ratio > 0.8) return '🔥 محتاج معجزة ليلة الامتحان';
+  if (ratio > 0.55) return '⚡ شد حيلك في الفاينل';
+  if (stats.reqFinalExcel <= stats.finalMax * 0.75) return '👑 دحيح الدفعة';
+  return '😎 في الأمان';
+}
+
+// Render Subject Chips
+function renderSubjectBar() {
+  const bar = document.getElementById('subjectBar');
+  bar.innerHTML = state.subjects.map(s => `
+    <button type="button" class="subject-chip ${s.id === state.activeSubjectId ? 'active' : ''}" onclick="selectSubject('${s.id}')">
+      <span>📘</span>
+      <span>${escapeHtml(s.name || 'بدون اسم')}</span>
+    </button>
+  `).join('') + `<button type="button" class="add-subject-btn" onclick="addNewSubject()">+ مادة جديدة</button>`;
+}
+
+function selectSubject(id) {
+  state.activeSubjectId = id;
+  saveState();
+  renderAll();
+}
+
+function addNewSubject() {
+  const s = createDefaultSubject('مادة ' + (state.subjects.length + 1), 3);
+  state.subjects.push(s);
+  state.activeSubjectId = s.id;
+  saveState();
+  renderAll();
+  showToast('✅ تم إضافة مادة جديدة');
+}
+
+function deleteCurrentSubject() {
+  if (state.subjects.length <= 1) {
+    showToast('⚠️ لازم يكون فيه مادة واحدة على الأقل');
+    return;
+  }
+  state.subjects = state.subjects.filter(s => s.id !== state.activeSubjectId);
+  state.activeSubjectId = state.subjects[0].id;
+  saveState();
+  renderAll();
+  showToast('🗑️ تم حذف المادة');
+}
+
+// Field Updaters
+function updateSubjectField(field, val) {
+  const sub = getActiveSubject();
+  sub[field] = val;
+  saveState();
+  if (field === 'name') renderSubjectBar();
+  updateCalculatedUI();
+}
+
+function applyDistPreset(cw, fin) {
+  const sub = getActiveSubject();
+  if (cw !== null && fin !== null) {
+    sub.cwMax = cw;
+    sub.finalMax = fin;
+    document.getElementById('cwMax').value = cw;
+    document.getElementById('finalMax').value = fin;
+  }
+  saveState();
+  updateCalculatedUI();
+}
+
+function updateDistField(field, val) {
+  const sub = getActiveSubject();
+  sub[field] = Number(val) || 0;
+  saveState();
+  updateCalculatedUI();
+}
+
+function toggleGrace(checked) {
+  const sub = getActiveSubject();
+  sub.graceEnabled = checked;
+  saveState();
+  updateCalculatedUI();
+}
+
+function updateGracePercent(val) {
+  const sub = getActiveSubject();
+  sub.gracePercent = Number(val) || 0;
+  saveState();
+  updateCalculatedUI();
+}
+
+function setCwMode(mode) {
+  const sub = getActiveSubject();
+  sub.cwMode = mode;
+  saveState();
+  renderCwArea();
+  updateCalculatedUI();
+}
+
+function updateSimpleCw(val) {
+  const sub = getActiveSubject();
+  sub.cwSimpleScore = Number(val) || 0;
+  saveState();
+  updateCalculatedUI();
+}
+
+function updateBreakdown(key, prop, val) {
+  const sub = getActiveSubject();
+  if (prop === 'tbd') {
+    sub.breakdown[key].tbd = val;
+    document.getElementById(key + 'Score').disabled = val;
+  } else {
+    sub.breakdown[key][prop] = val === '' ? '' : Number(val);
+  }
+  saveState();
+  updateCalculatedUI();
+}
+
+function updateBonus(val) {
+  const sub = getActiveSubject();
+  sub.breakdown.bonus = Number(val) || 0;
+  saveState();
+  updateCalculatedUI();
+}
+
+function updateBestQuizzes(val) {
+  const sub = getActiveSubject();
+  sub.breakdown.bestQuizzes = Number(val) || 0;
+  saveState();
+  updateCalculatedUI();
+}
+
+function addQuiz() {
+  const sub = getActiveSubject();
+  const idx = sub.breakdown.quizzes.length + 1;
+  sub.breakdown.quizzes.push({
+    id: 'q_' + Date.now(),
+    name: 'كويز ' + idx,
+    score: '',
+    max: 5,
+    tbd: false
+  });
+  saveState();
+  renderCwArea();
+  updateCalculatedUI();
+}
+
+function updateQuiz(id, prop, val) {
+  const sub = getActiveSubject();
+  const q = sub.breakdown.quizzes.find(item => item.id === id);
+  if (!q) return;
+  if (prop === 'tbd') {
+    q.tbd = val;
+    renderCwArea();
+  } else if (prop === 'name') {
+    q.name = val;
+  } else {
+    q[prop] = val === '' ? '' : Number(val);
+  }
+  saveState();
+  updateCalculatedUI();
+}
+
+function removeQuiz(id) {
+  const sub = getActiveSubject();
+  sub.breakdown.quizzes = sub.breakdown.quizzes.filter(item => item.id !== id);
+  saveState();
+  renderCwArea();
+  updateCalculatedUI();
+}
+
+// Milestones
+function addMilestone() {
+  const sub = getActiveSubject();
+  if (!sub.milestones) sub.milestones = [];
+  const input = document.getElementById('milestoneNoteInput');
+  const note = input.value.trim() || ('محطة ' + (sub.milestones.length + 1));
+  const stats = calculateSubjectStats(sub);
+  const today = new Date().toLocaleDateString('ar-EG', { month: 'short', day: 'numeric' });
+  sub.milestones.push({
+    id: 'ms_' + Date.now(),
+    note,
+    earned: stats.earnedCw,
+    max: stats.cwMax,
+    date: today
+  });
+  input.value = '';
+  saveState();
+  renderMilestones();
+  showToast('📈 تم تسجيل المحطة بنجاح');
+}
+
+function deleteMilestone(id) {
+  const sub = getActiveSubject();
+  sub.milestones = (sub.milestones || []).filter(m => m.id !== id);
+  saveState();
+  renderMilestones();
+}
+
+function renderMilestones() {
+  const sub = getActiveSubject();
+  const list = sub.milestones || [];
+  document.getElementById('milestoneCountBadge').textContent = list.length + ' محطات';
+  const container = document.getElementById('milestonesList');
+  if (list.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = list.map((m, idx) => {
+    const prev = idx > 0 ? list[idx - 1].earned : null;
+    const diff = prev !== null ? (m.earned - prev) : null;
+    const diffBadge = diff !== null
+      ? `<span class="pill ${diff >= 0 ? 'pill-success' : 'pill-danger'}">${diff >= 0 ? '+' + diff : diff}</span>`
+      : '';
+    return `
+      <div class="milestone-item">
+        <div>
+          <span>${escapeHtml(m.note)}</span>
+          <small style="color:var(--text-muted); margin-right:6px;">(${m.date})</small>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <strong>${m.earned} / ${m.max}</strong>
+          ${diffBadge}
+          <button type="button" class="icon-btn" style="padding:2px 7px; color:var(--danger);" onclick="deleteMilestone('${m.id}')">✕</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Custom Events / Schedules
+function openEventModal() {
+  document.getElementById('evTitleInput').value = '';
+  document.getElementById('evTbdCheck').checked = false;
+  document.getElementById('evDateTimeRow').style.display = 'grid';
+  document.getElementById('evDateInput').value = '';
+  document.getElementById('evTimeInput').value = '';
+  document.getElementById('evNoteInput').value = '';
+  document.getElementById('eventModal').classList.add('open');
+}
+
+function toggleEventDateInputs(isTbd) {
+  document.getElementById('evDateTimeRow').style.display = isTbd ? 'none' : 'grid';
+}
+
+function saveCustomEvent() {
+  const sub = getActiveSubject();
+  if (!sub.events) sub.events = [];
+  const title = document.getElementById('evTitleInput').value.trim();
+  if (!title) {
+    showToast('⚠️ اكتب اسم الميعاد أو التنبيه الأول');
+    return;
+  }
+  const tbd = document.getElementById('evTbdCheck').checked;
+  const date = tbd ? '' : document.getElementById('evDateInput').value;
+  const time = tbd ? '' : document.getElementById('evTimeInput').value;
+  const note = document.getElementById('evNoteInput').value.trim();
+
+  sub.events.push({
+    id: 'ev_' + Date.now(),
+    title,
+    tbd: tbd || !date,
+    date,
+    time,
+    note
+  });
+  saveState();
+  closeModal('eventModal');
+  renderSubjectEvents();
+  updateCalculatedUI();
+  showToast('📅 تم إضافة الميعاد بنجاح');
+}
+
+function deleteCustomEvent(evId) {
+  const sub = getActiveSubject();
+  sub.events = (sub.events || []).filter(e => e.id !== evId);
+  saveState();
+  renderSubjectEvents();
+  updateCalculatedUI();
+}
+
+function getDaysDiff(dateStr) {
+  if (!dateStr) return null;
+  const target = new Date(dateStr + 'T00:00:00');
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+}
+
+function renderSubjectEvents() {
+  const sub = getActiveSubject();
+  const container = document.getElementById('subjectEventsList');
+  const events = sub.events || [];
+  if (events.length === 0) {
+    container.innerHTML = `<div style="font-size:0.78rem; color:var(--text-muted); text-align:center; padding:8px;">مفيش مواعيد مضافة للمادة دي — اضغط «+ إضافة ميعاد / تنبيه»</div>`;
+    return;
+  }
+  container.innerHTML = events.map(ev => {
+    let badgeHtml = '';
+    if (ev.tbd || !ev.date) {
+      badgeHtml = `<span class="event-badge tbd">غير محدد التاريخ</span>`;
+    } else {
+      const days = getDaysDiff(ev.date);
+      if (days < 0) badgeHtml = `<span class="event-badge normal">انتهى (${ev.date})</span>`;
+      else if (days === 0) badgeHtml = `<span class="event-badge urgent">اليوم! 🔥</span>`;
+      else if (days <= 5) badgeHtml = `<span class="event-badge urgent">باقي ${days} أيام</span>`;
+      else badgeHtml = `<span class="event-badge soon">باقي ${days} يوم (${ev.date})</span>`;
+    }
+    return `
+      <div class="event-item">
+        <div>
+          <div style="font-size:0.86rem; font-weight:800;">${escapeHtml(ev.title)}</div>
+          <div style="font-size:0.74rem; color:var(--text-muted);">
+            ${ev.time ? '⏰ ' + ev.time + ' ' : ''}${ev.note ? '• ' + escapeHtml(ev.note) : ''}
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          ${badgeHtml}
+          <button type="button" class="icon-btn" style="padding:4px 8px; color:var(--danger);" onclick="deleteCustomEvent('${ev.id}')">✕</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Absence Counter
+function updateAbsenceField(field, val) {
+  const sub = getActiveSubject();
+  sub[field] = Number(val) || 0;
+  saveState();
+  updateCalculatedUI();
+}
+
+function stepAbsence(delta) {
+  const sub = getActiveSubject();
+  const current = Number(sub.absences) || 0;
+  sub.absences = Math.max(0, current + delta);
+  saveState();
+  document.getElementById('absCountDisplay').textContent = sub.absences;
+  updateCalculatedUI();
+}
+
+// Simulator Slider & Direct Numeric Input
+function updateSimSlider(val) {
+  const sub = getActiveSubject();
+  sub.simFinal = Number(val) || 0;
+  saveState();
+  updateCalculatedUI();
+}
+
+function updateSimDirectInput(val) {
+  const sub = getActiveSubject();
+  const maxFin = Number(sub.finalMax) || 60;
+  let num = Number(val);
+  if (isNaN(num)) num = 0;
+  num = Math.max(0, Math.min(maxFin, num));
+  sub.simFinal = num;
+  saveState();
+  updateCalculatedUI();
+}
+
+// Custom Target Logic (With Minus Grades Support)
+function toggleCustomTarget(enabled) {
+  const sub = getActiveSubject();
+  sub.customTarget.enabled = enabled;
+  document.getElementById('customTargetControls').style.display = enabled ? 'block' : 'none';
+  saveState();
+  updateCalculatedUI();
+}
+
+function renderCustomTargetInputField() {
+  const sub = getActiveSubject();
+  const type = sub.customTarget.type || 'percent';
+  const container = document.getElementById('customTargetValContainer');
+  if (type === 'percent') {
+    container.innerHTML = `
+      <label>النسبة المئوية المطلوبة (%)</label>
+      <input type="number" id="customTargetVal" step="0.5" min="0" max="100" value="${sub.customTarget.val || 88}" oninput="saveCustomTargetVal(this.value)">
+    `;
+  } else if (type === 'grade') {
+    const grades = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-'];
+    const cur = grades.includes(sub.customTarget.val) ? sub.customTarget.val : 'A-';
+    sub.customTarget.val = cur;
+    container.innerHTML = `
+      <label>التقدير المطلوب (شامل + و -)</label>
+      <select id="customTargetVal" onchange="saveCustomTargetVal(this.value)">
+        ${grades.map(g => `<option value="${g}" ${g === cur ? 'selected' : ''}>تقدير ${g}</option>`).join('')}
+      </select>
+    `;
+  } else {
+    const curGpa = Number(sub.customTarget.val) <= 4 ? sub.customTarget.val : 3.7;
+    sub.customTarget.val = curGpa;
+    container.innerHTML = `
+      <label>نقاط GPA المستهدفة (من 4.0)</label>
+      <input type="number" id="customTargetVal" step="0.1" min="0" max="4" value="${curGpa}" oninput="saveCustomTargetVal(this.value)">
+    `;
+  }
+}
+
+function updateCustomTarget() {
+  const sub = getActiveSubject();
+  sub.customTarget.type = document.getElementById('customTargetType').value;
+  renderCustomTargetInputField();
+  saveState();
+  updateCalculatedUI();
+}
+
+function saveCustomTargetVal(val) {
+  const sub = getActiveSubject();
+  sub.customTarget.val = val;
+  saveState();
+  updateCalculatedUI();
+}
+
+// Render CW Area
+function renderCwArea() {
+  const sub = getActiveSubject();
+  const isDetailed = sub.cwMode === 'detailed';
+  document.getElementById('modeSimpleBtn').classList.toggle('active', !isDetailed);
+  document.getElementById('modeDetailedBtn').classList.toggle('active', isDetailed);
+  document.getElementById('cwSimpleArea').style.display = isDetailed ? 'none' : 'block';
+  document.getElementById('cwDetailedArea').style.display = isDetailed ? 'block' : 'none';
+
+  document.getElementById('cwSimpleScore').value = sub.cwSimpleScore || '';
+
+  const b = sub.breakdown;
+  document.getElementById('mid1Score').value = b.mid1.score;
+  document.getElementById('mid1Max').value = b.mid1.max;
+  document.getElementById('mid1Tbd').checked = !!b.mid1.tbd;
+  document.getElementById('mid1Score').disabled = !!b.mid1.tbd;
+
+  document.getElementById('mid2Score').value = b.mid2.score;
+  document.getElementById('mid2Max').value = b.mid2.max;
+  document.getElementById('mid2Tbd').checked = !!b.mid2.tbd;
+  document.getElementById('mid2Score').disabled = !!b.mid2.tbd;
+
+  document.getElementById('sheetsScore').value = b.sheets.score;
+  document.getElementById('sheetsMax').value = b.sheets.max;
+  document.getElementById('sheetsTbd').checked = !!b.sheets.tbd;
+  document.getElementById('sheetsScore').disabled = !!b.sheets.tbd;
+
+  document.getElementById('bonusScore').value = b.bonus || 0;
+  document.getElementById('bestQuizzesCount').value = b.bestQuizzes ?? 0;
+
+  const qContainer = document.getElementById('quizzesContainer');
+  qContainer.innerHTML = (b.quizzes || []).map(q => `
+    <div class="quiz-row">
+      <input type="text" value="${escapeHtml(q.name)}" onchange="updateQuiz('${q.id}', 'name', this.value)" placeholder="اسم الكويز">
+      <input type="number" value="${q.score}" ${q.tbd ? 'disabled' : ''} step="0.25" min="0" oninput="updateQuiz('${q.id}', 'score', this.value)" placeholder="درجتك">
+      <input type="number" value="${q.max}" step="0.5" min="0" oninput="updateQuiz('${q.id}', 'max', this.value)" placeholder="العظمى">
+      <label class="tbd-check">
+        <input type="checkbox" ${q.tbd ? 'checked' : ''} onchange="updateQuiz('${q.id}', 'tbd', this.checked)"> لسه
+      </label>
+      <button type="button" class="icon-btn" style="padding:6px 9px; color:var(--danger);" onclick="removeQuiz('${q.id}')">✕</button>
+    </div>
+  `).join('');
+}
+
+// Update All Calculated UI Elements
+function updateCalculatedUI() {
+  const sub = getActiveSubject();
+  const stats = calculateSubjectStats(sub);
+
+  document.getElementById('pre-40-60').classList.toggle('active', stats.cwMax === 40 && stats.finalMax === 60);
+  document.getElementById('pre-30-70').classList.toggle('active', stats.cwMax === 30 && stats.finalMax === 70);
+  document.getElementById('pre-50-50').classList.toggle('active', stats.cwMax === 50 && stats.finalMax === 50);
+  const isCustom = !((stats.cwMax === 40 && stats.finalMax === 60) || (stats.cwMax === 30 && stats.finalMax === 70) || (stats.cwMax === 50 && stats.finalMax === 50));
+  document.getElementById('pre-custom').classList.toggle('active', isCustom);
+
+  document.getElementById('totalMaxBadge').textContent = 'المجموع: ' + stats.totalMax;
+
+  // Hero Banner
+  document.getElementById('heroMainVal').textContent = `${stats.reqFinalPass} / ${stats.finalMax}`;
+  const reqPct = stats.finalMax > 0 ? ((stats.reqFinalPass / stats.finalMax) * 100).toFixed(1) : 0;
+  if (stats.reqFinalPass > stats.finalMax) {
+    document.getElementById('heroDesc').textContent = `⚠️ المطلوب (${stats.reqFinalPass}) أكبر من درجة الفاينل (${stats.finalMax}) — فعل محاكي الرأفة!`;
+  } else {
+    document.getElementById('heroDesc').textContent = `موقفك ${stats.reqFinalPass <= stats.finalMax * 0.5 ? 'مطمئن' : 'يحتاج تركيز'} — محتاج ${reqPct}% من الفاينل`;
+  }
+
+  document.getElementById('heroFunBadge').textContent = getFunBadge(stats);
+  document.getElementById('heroCwVal').textContent = `${stats.earnedCw} / ${stats.cwMax}`;
+  document.getElementById('heroExcelVal').textContent = stats.reqFinalExcel > stats.finalMax
+    ? 'غير متاح'
+    : `${stats.reqFinalExcel} / ${stats.finalMax}`;
+
+  const upcoming = (sub.events || [])
+    .filter(e => !e.tbd && e.date && getDaysDiff(e.date) >= 0)
+    .sort((a, b) => getDaysDiff(a.date) - getDaysDiff(b.date));
+  if (upcoming.length > 0) {
+    const d = getDaysDiff(upcoming[0].date);
+    document.getElementById('heroNextExamBadge').textContent = `⏳ ${upcoming[0].title}: باقي ${d} يوم`;
+  } else {
+    document.getElementById('heroNextExamBadge').textContent = '📅 لا توجد مواعيد قادمة محددة';
+  }
+
+  document.getElementById('cwSummaryText').textContent = `المضمون من الممتحن: ${stats.earnedCw} / ${stats.cwMax}`;
+  document.getElementById('tbdRemainingText').textContent = stats.tbdCwMax > 0
+    ? `⏳ متبقي ${stats.tbdCwMax} درجة أعمال سنة غير ممتحنة`
+    : '';
+
+  // Dynamic Final Simulator Slider + Direct Input Box
+  const slider = document.getElementById('simSlider');
+  slider.max = stats.finalMax;
+  if (sub.simFinal > stats.finalMax) sub.simFinal = stats.finalMax;
+  slider.value = sub.simFinal;
+
+  const directInput = document.getElementById('simFinalInput');
+  directInput.max = stats.finalMax;
+  if (document.activeElement !== directInput) {
+    directInput.value = sub.simFinal;
+  }
+  document.getElementById('simFinalMaxLabel').textContent = `/ ${stats.finalMax}`;
+
+  const simTotal = Math.min(stats.totalMax, stats.earnedCw + sub.simFinal + stats.graceMarks);
+  const simPct = stats.totalMax > 0 ? (simTotal / stats.totalMax) * 100 : 0;
+  const simGrade = sub.simFinal < stats.finalMinRequired
+    ? { letter: 'F', label: 'راسب (شرط الفاينل)', cls: 'pill-danger' }
+    : getGradeInfo(simPct, sub.passPercent);
+
+  document.getElementById('simTotalDisplay').textContent = `مجموعك النهائي المتوقع: ${Math.round(simTotal * 10) / 10} / ${stats.totalMax} (${simPct.toFixed(1)}%)`;
+  const badgeEl = document.getElementById('simGradeBadge');
+  badgeEl.textContent = `${simGrade.label} (${simGrade.letter})`;
+  badgeEl.className = 'pill ' + simGrade.cls;
+
+  // Target Grades List (Default Presets Preserved)
+  const targets = [
+    { name: 'امتياز (A-)', pct: 85 },
+    { name: 'جيد جداً (B)', pct: 75 },
+    { name: 'جيد (C)', pct: 63 },
+    { name: 'النجاح الصافي', pct: Number(sub.passPercent) || 50 }
+  ];
+  document.getElementById('gradesTargetList').innerHTML = targets.map(t => {
+    const targetScore = stats.totalMax * (t.pct / 100);
+    let req = Math.max(0, targetScore - stats.earnedCw - stats.graceMarks);
+    if (t.name === 'النجاح الصافي') req = Math.max(req, stats.finalMinRequired);
+    req = Math.round(req * 10) / 10;
+    const possible = req <= stats.finalMax;
+    return `
+      <div class="grade-row">
+        <strong>${t.name} (${t.pct}%)</strong>
+        <span class="pill ${possible ? (req <= stats.finalMax * 0.6 ? 'pill-success' : 'pill-warning') : 'pill-danger'}">
+          ${possible ? `محتاج ${req} / ${stats.finalMax}` : 'مستحيل حسابياً'}
+        </span>
+      </div>
+    `;
+  }).join('');
+
+  // Custom Target Calculation
+  if (sub.customTarget && sub.customTarget.enabled) {
+    let targetPct = 0;
+    let labelText = '';
+    if (sub.customTarget.type === 'percent') {
+      targetPct = Number(sub.customTarget.val) || 0;
+      labelText = `هدف مخصص: ${targetPct}%`;
+    } else if (sub.customTarget.type === 'grade') {
+      targetPct = getMinPercentForGradeLetter(sub.customTarget.val);
+      labelText = `هدف مخصص: تقدير ${sub.customTarget.val} (${targetPct}%)`;
+    } else {
+      targetPct = getMinPercentForGpa(sub.customTarget.val);
+      labelText = `هدف مخصص: GPA ${sub.customTarget.val} (${targetPct}%)`;
+    }
+    const targetScore = stats.totalMax * (targetPct / 100);
+    let reqCustom = Math.max(0, targetScore - stats.earnedCw - stats.graceMarks);
+    reqCustom = Math.max(reqCustom, stats.finalMinRequired);
+    reqCustom = Math.round(reqCustom * 10) / 10;
+    const possibleCustom = reqCustom <= stats.finalMax;
+    document.getElementById('customTargetResult').innerHTML = `
+      <strong>${labelText}</strong>
+      <span class="pill ${possibleCustom ? 'pill-success' : 'pill-danger'}">
+        ${possibleCustom ? `محتاج ${reqCustom} / ${stats.finalMax}` : 'مستحيل حسابياً'}
+      </span>
+    `;
+  }
+
+  // Absence UI
+  document.getElementById('absCountDisplay').textContent = stats.abs;
+  const absPill = document.getElementById('absStatusPill');
+  if (stats.remainingAbs < 0) {
+    document.getElementById('heroAbsVal').textContent = 'تجاوزت الحد!';
+    absPill.textContent = '🚨 في دائرة الحرمان';
+    absPill.className = 'pill pill-danger';
+  } else if (stats.remainingAbs === 0) {
+    document.getElementById('heroAbsVal').textContent = '0 (على الحافة)';
+    absPill.textContent = '⚠️ آخر إنذار قبل الحرمان';
+    absPill.className = 'pill pill-warning';
+  } else {
+    document.getElementById('heroAbsVal').textContent = `محاضرة ${stats.remainingAbs}`;
+    absPill.textContent = `متاح لك ${stats.remainingAbs} غياب`;
+    absPill.className = 'pill pill-success';
+  }
+
+  checkSmartAlerts();
+}
+
+// Smart Critical Alerts Banner
+let alertSubjectId = null;
+function checkSmartAlerts() {
+  let alertMsg = '';
+  let key = '';
+  alertSubjectId = null;
+
+  for (const s of state.subjects) {
+    const st = calculateSubjectStats(s);
+    if (st.remainingAbs <= 0) {
+      alertMsg = `🚨 تنبيه غياب: مادة «${s.name}» وصلت للحد الأقصى للغياب!`;
+      key = s.id + '_abs_' + st.abs;
+      alertSubjectId = s.id;
+      break;
+    }
+    const soonEv = (s.events || []).find(e => !e.tbd && e.date && getDaysDiff(e.date) >= 0 && getDaysDiff(e.date) <= 3);
+    if (soonEv && st.reqFinalPass > st.finalMax * 0.65) {
+      alertMsg = `⏳ تنبيه امتحان: «${soonEv.title}» لمادة «${s.name}» بعد ${getDaysDiff(soonEv.date)} أيام!`;
+      key = s.id + '_ev_' + soonEv.id;
+      alertSubjectId = s.id;
+      break;
+    }
+  }
+
+  const banner = document.getElementById('smartBanner');
+  if (alertMsg && key !== state.dismissedAlertKey) {
+    banner.dataset.key = key;
+    document.getElementById('smartBannerText').textContent = alertMsg;
+    banner.classList.add('active');
+  } else {
+    banner.classList.remove('active');
+  }
+}
+
+function dismissSmartBanner() {
+  const banner = document.getElementById('smartBanner');
+  state.dismissedAlertKey = banner.dataset.key || '';
+  banner.classList.remove('active');
+  saveState();
+}
+
+function jumpToAlertSubject() {
+  if (alertSubjectId) {
+    selectSubject(alertSubjectId);
+    switchMainTab('subject');
+  }
+}
+
+// Render Radar Tab
+function renderRadar() {
+  const allItems = [];
+  state.subjects.forEach(sub => {
+    const stats = calculateSubjectStats(sub);
+    const riskScore = stats.finalMax > 0 ? (stats.reqFinalPass / stats.finalMax) : 0;
+    if (!sub.events || sub.events.length === 0) {
+      allItems.push({
+        subId: sub.id,
+        subName: sub.name,
+        title: 'لا يوجد ميعاد محدد',
+        tbd: true,
+        days: 9999,
+        riskScore
+      });
+    } else {
+      sub.events.forEach(ev => {
+        const d = (!ev.tbd && ev.date) ? getDaysDiff(ev.date) : 9999;
+        allItems.push({
+          subId: sub.id,
+          subName: sub.name,
+          title: ev.title,
+          date: ev.date,
+          time: ev.time,
+          tbd: ev.tbd || !ev.date,
+          days: d,
+          riskScore
+        });
+      });
+    }
+  });
+
+  allItems.sort((a, b) => a.days - b.days || b.riskScore - a.riskScore);
+  document.getElementById('radarCountBadge').textContent = allItems.length + ' عنصر';
+
+  document.getElementById('radarList').innerHTML = allItems.map(item => {
+    let pill = '';
+    if (item.tbd) pill = `<span class="pill" style="background:var(--purple-soft); color:var(--purple);">غير محدد</span>`;
+    else if (item.days < 0) pill = `<span class="pill">انتهى</span>`;
+    else if (item.days <= 4) pill = `<span class="pill pill-danger">باقي ${item.days} أيام</span>`;
+    else pill = `<span class="pill pill-warning">باقي ${item.days} يوم</span>`;
+
+    return `
+      <div class="event-item" style="cursor:pointer;" onclick="selectSubject('${item.subId}'); switchMainTab('subject');">
+        <div>
+          <div style="font-size:0.88rem; font-weight:800;">${escapeHtml(item.subName)} — ${escapeHtml(item.title)}</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">
+            ${item.date ? '📅 ' + item.date : ''} ${item.time ? '⏰ ' + item.time : ''} • درجة الخطورة: ${Math.round(item.riskScore * 100)}%
+          </div>
+        </div>
+        ${pill}
+      </div>
+    `;
+  }).join('');
+}
+
+// Render GPA, Rescue & Archive Tab
+function changeUniSystem(val) {
+  state.uniSystem = val;
+  saveState();
+  renderGpaTab();
+}
+
+function updateGpaSettings(field, val) {
+  state[field] = Number(val) || 0;
+  saveState();
+  renderGpaTab();
+}
+
+function renderGpaTab() {
+  document.getElementById('uniSystemSelect').value = state.uniSystem;
+  const isPctSys = state.uniSystem === 'percent';
+  const prevGpaEl = document.getElementById('prevGpa');
+  const targetSemEl = document.getElementById('targetSemGpa');
+  prevGpaEl.max = isPctSys ? 100 : 4;
+  prevGpaEl.placeholder = isPctSys ? 'مثال: 82.5' : 'مثال: 2.85';
+  targetSemEl.max = isPctSys ? 100 : 4;
+  if (isPctSys && Number(targetSemEl.value) <= 4) targetSemEl.value = 85;
+  if (!isPctSys && Number(targetSemEl.value) > 4) targetSemEl.value = 3.00;
+  prevGpaEl.value = state.prevGpa || '';
+  document.getElementById('prevCredits').value = state.prevCredits || '';
+
+  let semCredits = 0;
+  let semPoints = 0;
+  let semPercentWeighted = 0;
+
+  const rowsHtml = state.subjects.map(sub => {
+    const st = calculateSubjectStats(sub);
+    const totalEst = Math.min(st.totalMax, st.earnedCw + sub.simFinal + st.graceMarks);
+    const pct = st.totalMax > 0 ? (totalEst / st.totalMax) * 100 : 0;
+    const g = sub.simFinal < st.finalMinRequired
+      ? { letter: 'F', gpa: 0, cls: 'pill-danger' }
+      : getGradeInfo(pct, sub.passPercent);
+
+    const cr = Number(sub.credits) || 3;
+    semCredits += cr;
+    semPoints += g.gpa * cr;
+    semPercentWeighted += pct * cr;
+
+    return `
+      <div class="grade-row">
+        <div>
+          <strong>${escapeHtml(sub.name)}</strong>
+          <small style="color:var(--text-muted); margin-right:6px;">(${cr} ساعات)</small>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>${pct.toFixed(1)}%</span>
+          <span class="pill ${g.cls}">${state.uniSystem === 'gpa4' ? g.letter + ' (' + g.gpa.toFixed(1) + ')' : pct.toFixed(1) + '%'}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('gpaSubjectsTable').innerHTML = rowsHtml;
+  document.getElementById('semCreditsVal').textContent = semCredits + ' ساعة';
+
+  if (state.uniSystem === 'gpa4') {
+    const semGpa = semCredits > 0 ? (semPoints / semCredits) : 0;
+    const prevPts = (Number(state.prevGpa) || 0) * (Number(state.prevCredits) || 0);
+    const totCr = (Number(state.prevCredits) || 0) + semCredits;
+    const newCgpa = totCr > 0 ? ((prevPts + semPoints) / totCr) : semGpa;
+    document.getElementById('semGpaVal').textContent = semGpa.toFixed(2);
+    document.getElementById('newCgpaVal').textContent = newCgpa.toFixed(2);
+  } else {
+    const semPct = semCredits > 0 ? (semPercentWeighted / semCredits) : 0;
+    const prevPts = (Number(state.prevGpa) || 0) * (Number(state.prevCredits) || 0);
+    const totCr = (Number(state.prevCredits) || 0) + semCredits;
+    const newPct = totCr > 0 ? ((prevPts + semPercentWeighted) / totCr) : semPct;
+    document.getElementById('semGpaVal').textContent = semPct.toFixed(1) + '%';
+    document.getElementById('newCgpaVal').textContent = newPct.toFixed(1) + '%';
+  }
+
+  const rescueSel = document.getElementById('rescueSubjectSelect');
+  const prevSelected = rescueSel.value;
+  rescueSel.innerHTML = state.subjects.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('');
+  if (prevSelected && state.subjects.find(s => s.id === prevSelected)) rescueSel.value = prevSelected;
+
+  const targetGpa = Number(document.getElementById('targetSemGpa').value) || (isPctSys ? 85 : 3.0);
+  const chosenSub = state.subjects.find(s => s.id === rescueSel.value) || state.subjects[0];
+  if (chosenSub && semCredits > 0) {
+    const st = calculateSubjectStats(chosenSub);
+    const currentTotalEst = Math.min(st.totalMax, st.earnedCw + chosenSub.simFinal + st.graceMarks);
+    const currentPct = st.totalMax > 0 ? (currentTotalEst / st.totalMax) * 100 : 0;
+    const currentG = getGradeInfo(currentPct, chosenSub.passPercent);
+    const box = document.getElementById('rescueResultBox');
+
+    if (isPctSys) {
+      const otherWeighted = semPercentWeighted - (currentPct * chosenSub.credits);
+      const neededPct = ((targetGpa * semCredits) - otherWeighted) / chosenSub.credits;
+      if (neededPct <= currentPct) {
+        box.textContent = `✅ أنت محقق النسبة المستهدفة (${targetGpa}%) بالفعل بتقديراتك المتوقعة الحالية!`;
+      } else if (neededPct > 100) {
+        box.textContent = `⚠️ رفع مادة «${chosenSub.name}» لوحدها مش كفاية للوصول لـ ${targetGpa}% (محتاج ${neededPct.toFixed(1)}% فيها) — جرب ترفع مادتين مع بعض.`;
+      } else {
+        box.textContent = `💡 للوصول لمعدل فصلي ${targetGpa}%، محتاج تجيب في «${chosenSub.name}» نسبة ${neededPct.toFixed(1)}% على الأقل.`;
+      }
+    } else {
+      const otherPoints = semPoints - (currentG.gpa * chosenSub.credits);
+      const neededPoints = (targetGpa * semCredits) - otherPoints;
+      const neededGpa = neededPoints / chosenSub.credits;
+      if (neededGpa <= currentG.gpa) {
+        box.textContent = `✅ أنت محقق المعدل المستهدف (${targetGpa}) بالفعل بتقديراتك المتوقعة الحالية!`;
+      } else if (neededGpa > 4.0) {
+        box.textContent = `⚠️ رفع مادة «${chosenSub.name}» لوحدها مش كفاية للوصول لـ ${targetGpa} (لأن النقاط المطلوبة فيها تعادل ${neededGpa.toFixed(2)} وأقصى معدل للمادة هو 4.0) — جرب ترفع مادتين مع بعض.`;
+      } else {
+        box.textContent = `💡 للوصول لمعدل فصلي ${targetGpa}، محتاج تجيب في «${chosenSub.name}» تقدير يعادل ${neededGpa.toFixed(2)} نقطة.`;
+      }
+    }
+  }
+
+  const archEl = document.getElementById('archiveList');
+  if (!state.archive || state.archive.length === 0) {
+    archEl.innerHTML = `<div style="font-size:0.78rem; color:var(--text-muted); text-align:center;">لا توجد أترام مؤرشفة بعد.</div>`;
+  } else {
+    archEl.innerHTML = state.archive.map(a => `
+      <div class="event-item">
+        <div>
+          <strong>${escapeHtml(a.name)}</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted);">${a.subjectsCount} مواد • ${a.credits} ساعة</div>
+        </div>
+        <span class="pill pill-success">المعدل: ${a.gpa}</span>
+      </div>
+    `).join('');
+  }
+}
+
+function archiveCurrentSemester() {
+  const nameInput = document.getElementById('archiveSemName');
+  const semName = nameInput.value.trim() || ('ترم ' + ((state.archive || []).length + 1));
+  const semGpa = Number(document.getElementById('semGpaVal').textContent.replace('%', '')) || 0;
+  let semCredits = 0;
+  state.subjects.forEach(s => semCredits += (Number(s.credits) || 3));
+
+  const prevPts = (Number(state.prevGpa) || 0) * (Number(state.prevCredits) || 0);
+  const newTotCr = (Number(state.prevCredits) || 0) + semCredits;
+  const newCgpa = newTotCr > 0 ? Math.round(((prevPts + (semGpa * semCredits)) / newTotCr) * 100) / 100 : semGpa;
+
+  if (!state.archive) state.archive = [];
+  state.archive.push({
+    id: 'arch_' + Date.now(),
+    name: semName,
+    gpa: semGpa,
+    credits: semCredits,
+    subjectsCount: state.subjects.length
+  });
+
+  state.prevGpa = newCgpa;
+  state.prevCredits = newTotCr;
+  const fresh = createDefaultSubject('مادة 1', 3);
+  state.subjects = [fresh];
+  state.activeSubjectId = fresh.id;
+  nameInput.value = '';
+  saveState();
+  renderAll();
+  renderGpaTab();
+  showToast('📦 تم أرشفة الترم وتحديث رصيدك التراكمي تلقائياً');
+}
+
+// Batch Share & Backup
+function openBatchModal() {
+  document.getElementById('batchModal').classList.add('open');
+}
+
+function shareSubjectTemplate() {
+  const sub = getActiveSubject();
+  const clean = {
+    type: 'subject_template',
+    name: sub.name,
+    credits: sub.credits,
+    cwMax: sub.cwMax,
+    finalMax: sub.finalMax,
+    passPercent: sub.passPercent,
+    finalMinPercent: sub.finalMinPercent,
+    events: sub.events || []
+  };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(clean))));
+  navigator.clipboard?.writeText(code);
+  showToast('🔗 تم نسخ كود قالب المادة! ابعته لزمايلك يلصقوه في «الدفعة / حفظ»');
+}
+
+function copySemesterPack() {
+  const pack = {
+    type: 'semester_pack',
+    subjects: state.subjects.map(s => ({
+      name: s.name,
+      credits: s.credits,
+      cwMax: s.cwMax,
+      finalMax: s.finalMax,
+      passPercent: s.passPercent,
+      finalMinPercent: s.finalMinPercent,
+      events: s.events || []
+    }))
+  };
+  const code = btoa(unescape(encodeURIComponent(JSON.stringify(pack))));
+  navigator.clipboard?.writeText(code);
+  showToast('📋 تم نسخ كود حزمة الترم بالكامل! جاهز للمشاركة مع الدفعة');
+}
+
+function importSharedCode() {
+  let raw = document.getElementById('importCodeInput').value.trim();
+  if (!raw) return;
+  if (raw.includes('#share=')) {
+    raw = raw.split('#share=')[1].trim();
+  }
+  try {
+    const decoded = JSON.parse(decodeURIComponent(escape(atob(raw))));
+    if (applyDecodedSharePayload(decoded)) {
+      closeModal('batchModal');
+    }
+  } catch (e) {
+    showToast('❌ الرابط أو الكود غير صحيح، تأكد من نسخه بالكامل');
+  }
+}
+
+function exportBackupJson() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'e3raf-mawqefak-backup.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('⬇️ تم تحميل ملف النسخة الاحتياطية');
+}
+
+function importBackupJson(ev) {
+  const file = ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      if (parsed && Array.isArray(parsed.subjects)) {
+        state = { ...state, ...parsed };
+        saveState();
+        renderAll();
+        closeModal('batchModal');
+        showToast('✅ تم استرجاع بياناتك بنجاح');
+      }
+    } catch (e) {
+      showToast('❌ ملف النسخة الاحتياطية غير صالح');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// Shareable Canvas Card
+let shareCardType = 'subject';
+function openShareCardModal() {
+  document.getElementById('shareCardModal').classList.add('open');
+  renderShareCanvas();
+}
+
+function setShareCardType(type) {
+  shareCardType = type;
+  document.getElementById('cardTypeSub').classList.toggle('active', type === 'subject');
+  document.getElementById('cardTypeSem').classList.toggle('active', type === 'semester');
+  document.getElementById('semHideGradesRow').style.display = type === 'semester' ? 'block' : 'none';
+  renderShareCanvas();
+}
+
+function renderShareCanvas() {
+  const canvas = document.getElementById('shareCanvas');
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 540, 540);
+  grad.addColorStop(0, '#1e3a8a');
+  grad.addColorStop(1, '#2563eb');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 540, 540);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  ctx.beginPath();
+  if (ctx.roundRect) {
+    ctx.roundRect(30, 30, 480, 480, 28);
+  } else {
+    ctx.rect(30, 30, 480, 480);
+  }
+  ctx.fill();
+
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 24px "Noto Sans Arabic", sans-serif';
+  ctx.fillText('🎓 اعرف موقفك', 270, 85);
+
+  if (shareCardType === 'subject') {
+    const sub = getActiveSubject();
+    const st = calculateSubjectStats(sub);
+    ctx.font = 'bold 28px "Noto Sans Arabic", sans-serif';
+    ctx.fillText(sub.name, 270, 150);
+
+    ctx.font = 'bold 20px "Noto Sans Arabic", sans-serif';
+    ctx.fillStyle = '#bfdbfe';
+    ctx.fillText('المطلوب في الفاينل لتعدي الصافي:', 270, 215);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 58px "Noto Sans Arabic", sans-serif';
+    ctx.fillText(`${st.reqFinalPass} / ${st.finalMax}`, 270, 290);
+
+    ctx.font = 'bold 22px "Noto Sans Arabic", sans-serif';
+    ctx.fillText(getFunBadge(st), 270, 355);
+
+    ctx.font = '18px "Noto Sans Arabic", sans-serif';
+    ctx.fillStyle = '#e2e8f0';
+    ctx.fillText(`أعمال السنة: ${st.earnedCw}/${st.cwMax}  •  للامتياز: ${st.reqFinalExcel}/${st.finalMax}`, 270, 415);
+  } else {
+    renderGpaTab();
+    const semGpa = document.getElementById('semGpaVal').textContent;
+    const cgpa = document.getElementById('newCgpaVal').textContent;
+    ctx.font = 'bold 26px "Noto Sans Arabic", sans-serif';
+    ctx.fillText('ملخص موقف الترم والمعدل', 270, 150);
+
+    ctx.fillStyle = '#bfdbfe';
+    ctx.font = 'bold 20px "Noto Sans Arabic", sans-serif';
+    ctx.fillText('المعدل الفصلي المتوقع', 270, 215);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 62px "Noto Sans Arabic", sans-serif';
+    ctx.fillText(semGpa, 270, 290);
+
+    ctx.font = 'bold 22px "Noto Sans Arabic", sans-serif';
+    ctx.fillText(`المعدل التراكمي (CGPA): ${cgpa}`, 270, 355);
+
+    if (!document.getElementById('hideSubDetailsCheck').checked) {
+      ctx.font = '16px "Noto Sans Arabic", sans-serif';
+      ctx.fillText(`عدد المواد: ${state.subjects.length} مواد`, 270, 405);
+    }
+  }
+
+  const stu = state.studentInfo || {};
+  const stuLine = [stu.name, stu.seat ? 'جلوس: ' + stu.seat : '', stu.year, stu.dept].filter(Boolean).join(' • ');
+  ctx.font = 'bold 14px "Noto Sans Arabic", sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.88)';
+  ctx.fillText(stuLine || 'حاسبة الدرجات والـ GPA لطلاب الجامعات', 270, 480);
+}
+
+function downloadShareCard() {
+  const canvas = document.getElementById('shareCanvas');
+  const a = document.createElement('a');
+  a.download = 'e3raf-mawqefak-card.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+  showToast('🖼️ تم حفظ الكارت في الاستوديو');
+}
+
+// Demo Data & Tour
+function loadDemoData() {
+  const s1 = createDefaultSubject('دوائر كهربية 1', 3);
+  s1.breakdown.mid1 = { score: 13, max: 15, tbd: false };
+  s1.breakdown.sheets = { score: 9, max: 10, tbd: false };
+  s1.breakdown.quizzes = [
+    { id: 'd1', name: 'كويز 1', score: 4.5, max: 5, tbd: false },
+    { id: 'd2', name: 'كويز 2', score: 4, max: 5, tbd: false }
+  ];
+  const dSoon = new Date(Date.now() + 4 * 86400000).toISOString().slice(0, 10);
+  s1.events = [{ id: 'ev1', title: 'امتحان الفاينل', date: dSoon, time: '09:00', tbd: false, note: 'مدرج 1' }];
+
+  const s2 = createDefaultSubject('رياضيات هندسية 3', 3);
+  s2.breakdown.mid1 = { score: 7, max: 15, tbd: false };
+  s2.breakdown.sheets = { score: 5, max: 10, tbd: false };
+  s2.absences = 3;
+
+  const s3 = createDefaultSubject('تصميم منطقي (Logic)', 3);
+  s3.cwMax = 50; s3.finalMax = 50;
+  s3.cwMode = 'simple'; s3.cwSimpleScore = 41;
+
+  state.subjects = [s1, s2, s3];
+  state.activeSubjectId = s1.id;
+  state.prevGpa = 2.95;
+  state.prevCredits = 32;
+  state.onboarded = true;
+  saveState();
+  closeModal('welcomeModal');
+  renderAll();
+  showToast('✨ تم تحميل 3 مواد تجريبية بنجاح!');
+}
+
+const tourSteps = [
+  { el: 'tour-subject-info', tab: 'subject', title: '1. بيانات المادة والمواعيد', text: 'اكتب اسم المادة وساعاتها، واضغط «+ إضافة ميعاد / تنبيه» لإضافة أي كويز أو ميد أو فاينل بأي تاريخ.' },
+  { el: 'tour-hero', tab: 'subject', title: '2. ملخص موقفك الفوري', text: 'هنا بيظهر لك فاضلك كام درجة بالظبط في الفاينل عشان تعدي الصافي أو تجيب امتياز، ولقبك حسب وضعك.' },
+  { el: 'tour-dist', tab: 'subject', title: '3. تقسيمة الدرجات والرأفة', text: 'حدد درجة أعمال السنة ودرجة الفاينل براحتك، وتقدر تفعل محاكي درجات الرأفة وتشوف تأثيرها فوراً.' },
+  { el: 'tour-cw', tab: 'subject', title: '4. تفاصيل أعمال السنة والمحطات', text: 'سجل درجات الميد والكويزات (يتم جمع الكويزات تلقائياً) وسجل محطات تطور مستواك.' },
+  { el: 'tour-sim', tab: 'subject', title: '5. محاكي الفاينل والأهداف المخصصة', text: 'اكتب درجة الفاينل المتوقعة مباشرة أو حرك المؤشر، وكمان تقدر تخصص نسبة مئوية أو تقدير (+ أو -) أو GPA معين.' },
+  { el: 'tour-abs', tab: 'subject', title: '6. عدّاد الغياب والحرمان', text: 'سجل غيابك بالزرار + و - وهينبهك تلقائياً قبل ما تقرب من نسبة الحرمان.' }
+];
+let currentTourIdx = 0;
+
+function startTour() {
+  currentTourIdx = 0;
+  showTourStep();
+}
+
+function showTourStep() {
+  document.querySelectorAll('.tour-highlight').forEach(e => e.classList.remove('tour-highlight'));
+  const step = tourSteps[currentTourIdx];
+  switchMainTab(step.tab);
+  const target = document.getElementById(step.el);
+  if (target) {
+    target.classList.add('tour-highlight');
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  document.getElementById('tourStepBadge').textContent = `خطوة ${currentTourIdx + 1} من ${tourSteps.length}`;
+  document.getElementById('tourTitle').textContent = step.title;
+  document.getElementById('tourText').textContent = step.text;
+  document.getElementById('tourNextBtn').textContent = currentTourIdx === tourSteps.length - 1 ? 'إنهاء ✅' : 'التالي ⬅️';
+  document.getElementById('tourPopover').classList.add('active');
+}
+
+function nextTourStep() {
+  if (currentTourIdx < tourSteps.length - 1) {
+    currentTourIdx++;
+    showTourStep();
+  } else {
+    endTour();
+  }
+}
+
+function prevTourStep() {
+  if (currentTourIdx > 0) {
+    currentTourIdx--;
+    showTourStep();
+  }
+}
+
+function endTour() {
+  document.querySelectorAll('.tour-highlight').forEach(e => e.classList.remove('tour-highlight'));
+  document.getElementById('tourPopover').classList.remove('active');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
+
+function updateStudentInfo(field, val) {
+  if (!state.studentInfo) state.studentInfo = { name: '', seat: '', dept: '', year: '' };
+  state.studentInfo[field] = val;
+  saveState();
+}
+
+function renderAll() {
+  const sub = getActiveSubject();
+  const stu = state.studentInfo || { name: '', seat: '', dept: '', year: '' };
+  document.getElementById('stuName').value = stu.name || '';
+  document.getElementById('stuSeat').value = stu.seat || '';
+  document.getElementById('stuDept').value = stu.dept || '';
+  document.getElementById('stuYear').value = stu.year || '';
+  document.documentElement.setAttribute('data-theme', state.theme || 'light');
+  document.getElementById('themeBtn').textContent = state.theme === 'light' ? '🌙' : '☀️';
+
+  renderSubjectBar();
+  document.getElementById('subName').value = sub.name || '';
+  document.getElementById('subCredits').value = sub.credits || 3;
+  document.getElementById('subNotes').value = sub.notes || '';
+  document.getElementById('subDriveLink').value = sub.driveLink || '';
+  document.getElementById('cwMax').value = sub.cwMax;
+  document.getElementById('finalMax').value = sub.finalMax;
+  document.getElementById('passPercent').value = sub.passPercent || 50;
+  document.getElementById('finalMinPercent').value = sub.finalMinPercent ?? 30;
+  document.getElementById('graceEnabled').checked = !!sub.graceEnabled;
+  document.getElementById('gracePercent').value = sub.gracePercent || 3;
+  document.getElementById('totalLectures').value = sub.totalLectures || 14;
+  document.getElementById('deprivationPercent').value = sub.deprivationPercent || 25;
+
+  const ct = sub.customTarget || { enabled: false, type: 'percent', val: 88 };
+  document.getElementById('customTargetEnabled').checked = !!ct.enabled;
+  document.getElementById('customTargetControls').style.display = ct.enabled ? 'block' : 'none';
+  document.getElementById('customTargetType').value = ct.type || 'percent';
+  renderCustomTargetInputField();
+
+  renderSubjectEvents();
+  renderCwArea();
+  renderMilestones();
+  updateCalculatedUI();
+}
+
+
+function openSubjectDriveLink() {
+  const sub = getActiveSubject();
+  let link = (sub.driveLink || '').trim();
+  if (!link) {
+    showToast('⚠️ أضف رابط الماتريال أو الدرايف في الخانة أولاً');
+    return;
+  }
+  if (!/^https?:\/\//i.test(link)) link = 'https://' + link;
+  window.open(link, '_blank', 'noopener');
+}
+
+function openGradingScaleModal() {
+  renderGradingScaleEditor();
+  document.getElementById('gradingScaleModal').classList.add('open');
+}
+
+function renderGradingScaleEditor() {
+  const scale = getGradeScale();
+  document.getElementById('gradingScaleEditorList').innerHTML = scale.map((item, idx) => `
+    <div style="display:grid; grid-template-columns: 60px 1fr 1fr; gap:8px; align-items:center; padding:6px 4px; border-bottom:1px solid var(--border);">
+      <strong style="text-align:center; color:var(--primary);">${item.letter}</strong>
+      <div>
+        <span style="font-size:0.7rem; color:var(--text-muted); display:block;">من نسبة (%)</span>
+        <input type="number" class="gs-pct-input" data-idx="${idx}" value="${item.minPct}" step="0.5" min="0" max="100" style="padding:6px 8px;">
+      </div>
+      <div>
+        <span style="font-size:0.7rem; color:var(--text-muted); display:block;">النقاط (GPA)</span>
+        <input type="number" class="gs-gpa-input" data-idx="${idx}" value="${item.gpa}" step="0.05" min="0" max="4" style="padding:6px 8px;">
+      </div>
+    </div>
+  `).join('');
+}
+
+function applyGradeScalePreset(preset) {
+  let base = JSON.parse(JSON.stringify(DEFAULT_GRADE_SCALE));
+  if (preset === 'strict') {
+    const map = { 'A+': 97, 'A': 93, 'A-': 89, 'B+': 84, 'B': 80, 'B-': 76, 'C+': 73, 'C': 70, 'C-': 67, 'D+': 64, 'D': 60, 'D-': 55 };
+    base.forEach(g => { if (map[g.letter] !== undefined) g.minPct = map[g.letter]; });
+  } else if (preset === 'classic') {
+    const map = { 'A+': 92, 'A': 85, 'A-': 82, 'B+': 78, 'B': 75, 'B-': 70, 'C+': 67, 'C': 65, 'C-': 60, 'D+': 56, 'D': 53, 'D-': 50 };
+    base.forEach(g => { if (map[g.letter] !== undefined) g.minPct = map[g.letter]; });
+  }
+  state.customGradeScale = base;
+  renderGradingScaleEditor();
+  showToast('✨ تم تطبيق القالب — اضغط حفظ لتأكيد اللائحة');
+}
+
+function saveCustomGradeScale() {
+  const current = JSON.parse(JSON.stringify(getGradeScale()));
+  document.querySelectorAll('.gs-pct-input').forEach(inp => {
+    const idx = Number(inp.dataset.idx);
+    current[idx].minPct = Number(inp.value) || 0;
+  });
+  document.querySelectorAll('.gs-gpa-input').forEach(inp => {
+    const idx = Number(inp.dataset.idx);
+    current[idx].gpa = Number(inp.value) || 0;
+  });
+  state.customGradeScale = current;
+  saveState();
+  closeModal('gradingScaleModal');
+  updateCalculatedUI();
+  showToast('💾 تم حفظ لائحة التقديرات وتحديث الحسابات');
+}
+
+function openPrintOptionsModal() {
+  document.getElementById('printOptionsModal').classList.add('open');
+}
+
+function executeSelectedPrint() {
+  const mode = document.getElementById('printReportType').value;
+  const customTitle = document.getElementById('printCustomTitle').value.trim();
+  const termBadge = document.getElementById('printTermBadge').value.trim();
+  closeModal('printOptionsModal');
+  renderOfficialPrintReport(mode, customTitle, termBadge);
+  setTimeout(() => window.print(), 120);
+}
+
+function renderOfficialPrintReport(mode = 'full', customTitle = '', termBadge = 'الترم الأول') {
+  const container = document.getElementById('officialPrintReport');
+  if (!container) return;
+  const stu = state.studentInfo || { name: '', seat: '', dept: '', year: '' };
+  const stuName = stu.name.trim() || '—';
+  const stuSeat = stu.seat.trim() || '—';
+  const yearDept = [stu.year, stu.dept].filter(Boolean).join(' — ') || 'غير محدد';
+  const subHeader = yearDept !== 'غير محدد' ? ('درجات ' + yearDept) : 'بيان درجات الطالب';
+  const badgeText = termBadge || 'الترم الأول';
+  const dateStr = new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  let mainTitle = customTitle;
+  if (!mainTitle) {
+    if (mode === 'mid1') mainTitle = 'كشف درجات اختبار منتصف الفصل (الميدتيرم الأول)';
+    else if (mode === 'mid2') mainTitle = 'كشف درجات اختبار منتصف الفصل (الميدتيرم الثاني)';
+    else if (mode === 'cw') mainTitle = 'كشف درجات أعمال السنة التفصيلي';
+    else mainTitle = 'كشف درجات أعمال السنة والموقف الدراسي';
+  }
+
+  let bodyHtml = '';
+
+  if (mode === 'mid1' || mode === 'mid2') {
+    const key = mode;
+    const label = mode === 'mid1' ? 'درجات الميد الأول' : 'درجات الميد الثاني';
+    let sumScore = 0;
+    let sumMax = 0;
+
+    const headCols = state.subjects.map(s => `<th>${escapeHtml(s.name)}</th>`).join('');
+    const valCols = state.subjects.map(s => {
+      const item = (s.breakdown && s.breakdown[key]) ? s.breakdown[key] : { score: '', max: 0, tbd: true };
+      const maxVal = Number(item.max) || 0;
+      sumMax += maxVal;
+      if (item.tbd || item.score === '' || s.cwMode === 'simple') {
+        return `<td>—</td>`;
+      }
+      const sc = Number(item.score) || 0;
+      sumScore += sc;
+      return `<td>${sc} / ${maxVal}</td>`;
+    }).join('');
+
+    bodyHtml = `
+      <h2 class="opr-sec-title">${label}</h2>
+      <table class="opr-table">
+        <thead>
+          <tr>
+            <th style="width:18%;">المادة</th>
+            ${headCols}
+            <th>المجموع</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="opr-sub-col">الدرجة المحققة</td>
+            ${valCols}
+            <td class="opr-highlight-col">${Math.round(sumScore * 100) / 100} / ${sumMax}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="opr-footnote">
+        * علامة (—) تشير إلى المواد التي لم تُعلن درجاتها بعد أو جارٍ رصدها.
+      </div>
+    `;
+  } else {
+    let totalCredits = 0;
+    let totalEarnedCw = 0;
+    let totalMaxCw = 0;
+    let semPoints = 0;
+    let semPctWeighted = 0;
+
+    const rowsHtml = state.subjects.map(sub => {
+      const st = calculateSubjectStats(sub);
+      const cr = Number(sub.credits) || 3;
+      totalCredits += cr;
+      totalEarnedCw += st.earnedCw;
+      totalMaxCw += st.cwMax;
+
+      const totalEst = Math.min(st.totalMax, st.earnedCw + sub.simFinal + st.graceMarks);
+      const pct = st.totalMax > 0 ? (totalEst / st.totalMax) * 100 : 0;
+      const g = sub.simFinal < st.finalMinRequired
+        ? { letter: 'F', gpa: 0 }
+        : getGradeInfo(pct, sub.passPercent);
+      semPoints += g.gpa * cr;
+      semPctWeighted += pct * cr;
+
+      let mid1Cell = '—';
+      let mid2Cell = '—';
+      let sheetsCell = '—';
+      let quizCell = '—';
+
+      if (sub.cwMode === 'detailed') {
+        const b = sub.breakdown;
+        if (!b.mid1.tbd && b.mid1.score !== '') mid1Cell = `${b.mid1.score} / ${b.mid1.max}`;
+        if (!b.mid2.tbd && b.mid2.score !== '') mid2Cell = `${b.mid2.score} / ${b.mid2.max}`;
+        if (!b.sheets.tbd && b.sheets.score !== '') sheetsCell = `${b.sheets.score} / ${b.sheets.max}`;
+
+        const activeQ = (b.quizzes || []).filter(q => !q.tbd && q.score !== '');
+        if (activeQ.length > 0) {
+          const qSum = activeQ.reduce((acc, q) => acc + (Number(q.score) || 0), 0);
+          const qMaxSum = activeQ.reduce((acc, q) => acc + (Number(q.max) || 0), 0);
+          quizCell = `${Math.round(qSum * 100) / 100} / ${qMaxSum}`;
+        }
+      }
+
+      const reqPassCell = st.reqFinalPass > st.finalMax ? 'رأفة/مستحيل' : `${st.reqFinalPass} / ${st.finalMax}`;
+      const reqExcelCell = st.reqFinalExcel > st.finalMax ? '—' : `${st.reqFinalExcel} / ${st.finalMax}`;
+
+      if (mode === 'cw') {
+        return `
+          <tr>
+            <td class="opr-sub-col">${escapeHtml(sub.name)}</td>
+            <td>${cr}</td>
+            <td>${mid1Cell}</td>
+            <td>${mid2Cell}</td>
+            <td>${sheetsCell}</td>
+            <td>${quizCell}</td>
+            <td>${sub.breakdown?.bonus || 0}</td>
+            <td class="opr-highlight-col">${st.earnedCw} / ${st.cwMax}</td>
+          </tr>
+        `;
+      }
+
+      return `
+        <tr>
+          <td class="opr-sub-col">${escapeHtml(sub.name)}</td>
+          <td>${cr}</td>
+          <td>${mid1Cell}</td>
+          <td>${mid2Cell}</td>
+          <td>${sheetsCell}</td>
+          <td>${quizCell}</td>
+          <td class="opr-highlight-col">${st.earnedCw} / ${st.cwMax}</td>
+          <td>${reqPassCell}</td>
+          <td>${reqExcelCell}</td>
+          <td>${st.abs} / ${st.maxAllowedAbs}</td>
+        </tr>
+      `;
+    }).join('');
+
+    if (mode === 'cw') {
+      bodyHtml = `
+        <h2 class="opr-sec-title">بيان درجات أعمال السنة التفصيلي</h2>
+        <table class="opr-table">
+          <thead>
+            <tr>
+              <th style="width:24%;">المادة</th>
+              <th>الساعات</th>
+              <th>الميد الأول</th>
+              <th>الميد الثاني</th>
+              <th>الشيتات/العملي</th>
+              <th>الكويزات</th>
+              <th>البونص</th>
+              <th>مجموع أعمال السنة</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+            <tr class="opr-total-row">
+              <td class="opr-sub-col">المجموع الكلي</td>
+              <td>${totalCredits}</td>
+              <td colspan="5">إجمالي درجات أعمال السنة المحققة</td>
+              <td>${Math.round(totalEarnedCw * 100) / 100} / ${totalMaxCw}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="opr-footnote">
+          * علامة (—) تشير إلى البنود التي لم تُعلن درجاتها بعد أو جارٍ رصدها.
+        </div>
+      `;
+    } else {
+      const isPctSys = state.uniSystem === 'percent';
+      const semVal = totalCredits > 0
+        ? (isPctSys ? (semPctWeighted / totalCredits).toFixed(1) + '%' : (semPoints / totalCredits).toFixed(2))
+        : '0.00';
+
+      const prevPts = (Number(state.prevGpa) || 0) * (Number(state.prevCredits) || 0);
+      const totCrAll = (Number(state.prevCredits) || 0) + totalCredits;
+      const newCgpa = totCrAll > 0
+        ? (isPctSys
+            ? ((prevPts + semPctWeighted) / totCrAll).toFixed(1) + '%'
+            : ((prevPts + semPoints) / totCrAll).toFixed(2))
+        : semVal;
+
+      bodyHtml = `
+        <h2 class="opr-sec-title">بيان درجات المواد والمتطلبات في الامتحان النهائي</h2>
+        <table class="opr-table">
+          <thead>
+            <tr>
+              <th style="width:22%;">المادة</th>
+              <th>الساعات</th>
+              <th>الميد الأول</th>
+              <th>الميد الثاني</th>
+              <th>الشيتات/العملي</th>
+              <th>الكويزات</th>
+              <th>أعمال السنة</th>
+              <th>للنجاح بالفاينل</th>
+              <th>للامتياز</th>
+              <th>الغياب</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+            <tr class="opr-total-row">
+              <td class="opr-sub-col">المجموع الكلي</td>
+              <td>${totalCredits}</td>
+              <td colspan="4">إجمالي درجات أعمال السنة المضمونة</td>
+              <td>${Math.round(totalEarnedCw * 100) / 100} / ${totalMaxCw}</td>
+              <td colspan="3">—</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="opr-footnote">
+          * علامة (—) تشير إلى البنود التي لم تُعلن درجاتها بعد أو غير المحددة، وعمود الغياب يوضح (غيابك المسجل / الحد الأقصى المسموح).
+        </div>
+        <h2 class="opr-sec-title">ملخص المعدل التراكمي المتوقع</h2>
+        <div class="opr-gpa-summary">
+          <div>
+            <span>المعدل الفصلي المتوقع</span>
+            <strong>${semVal}</strong>
+          </div>
+          <div>
+            <span>المعدل التراكمي الجديد</span>
+            <strong>${newCgpa}</strong>
+          </div>
+          <div>
+            <span>إجمالي ساعات الترم</span>
+            <strong>${totalCredits} ساعة معتمدة</strong>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  container.innerHTML = `
+    <div class="opr-header">
+      <div>
+        <p class="opr-sub-title">${escapeHtml(subHeader)}</p>
+        <h1 class="opr-main-title">${escapeHtml(mainTitle)}</h1>
+      </div>
+      <div class="opr-badge">${escapeHtml(badgeText)}</div>
+    </div>
+
+    <div class="opr-student-box">
+      <div class="opr-stu-item">
+        <span>اسم الطالب</span>
+        <strong>${escapeHtml(stuName)}</strong>
+      </div>
+      <div class="opr-stu-item">
+        <span>رقم الجلوس</span>
+        <strong>${escapeHtml(stuSeat)}</strong>
+      </div>
+      <div class="opr-stu-item">
+        <span>الفرقة والتخصص</span>
+        <strong>${escapeHtml(yearDept)}</strong>
+      </div>
+    </div>
+
+    ${bodyHtml}
+
+    <div class="opr-footer">
+      <span>بيان درجات رسمي — ${escapeHtml(yearDept)}</span>
+      <span>تاريخ الإصدار: ${dateStr}</span>
+    </div>
+  `;
+}
+
+window.addEventListener('beforeprint', () => {
+  const typeEl = document.getElementById('printReportType');
+  const titleEl = document.getElementById('printCustomTitle');
+  const badgeEl = document.getElementById('printTermBadge');
+  renderOfficialPrintReport(
+    typeEl ? typeEl.value : 'full',
+    titleEl ? titleEl.value : '',
+    badgeEl ? badgeEl.value : 'الترم الأول'
+  );
+});
+
+
+function buildShareUrl(payloadObj) {
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payloadObj))));
+  const baseUrl = window.location.href.split('#')[0];
+  return baseUrl + '#share=' + encoded;
+}
+
+function copySubjectLink() {
+  const sub = getActiveSubject();
+  const clean = {
+    type: 'subject_template',
+    name: sub.name,
+    credits: sub.credits,
+    cwMax: sub.cwMax,
+    finalMax: sub.finalMax,
+    passPercent: sub.passPercent,
+    finalMinPercent: sub.finalMinPercent,
+    events: sub.events || []
+  };
+  const link = buildShareUrl(clean);
+  navigator.clipboard?.writeText(link);
+  showToast('🔗 تم نسخ رابط المادة المباشر! ابعته لزمايلك');
+}
+
+function copySemesterLink() {
+  const pack = {
+    type: 'semester_pack',
+    subjects: state.subjects.map(s => ({
+      name: s.name,
+      credits: s.credits,
+      cwMax: s.cwMax,
+      finalMax: s.finalMax,
+      passPercent: s.passPercent,
+      finalMinPercent: s.finalMinPercent,
+      events: s.events || []
+    }))
+  };
+  const link = buildShareUrl(pack);
+  navigator.clipboard?.writeText(link);
+  showToast('🔗 تم نسخ رابط حزمة الترم بالكامل! جاهز للمشاركة على جروب الدفعة');
+}
+
+function applyDecodedSharePayload(decoded) {
+  if (decoded.type === 'subject_template') {
+    const s = createDefaultSubject(decoded.name, decoded.credits);
+    s.cwMax = decoded.cwMax;
+    s.finalMax = decoded.finalMax;
+    s.passPercent = decoded.passPercent;
+    s.finalMinPercent = decoded.finalMinPercent;
+    s.events = decoded.events || [];
+    state.subjects.push(s);
+    state.activeSubjectId = s.id;
+    saveState();
+    renderAll();
+    showToast('✅ تم استيراد مادة «' + s.name + '» بنجاح');
+    return true;
+  } else if (decoded.type === 'semester_pack' && Array.isArray(decoded.subjects)) {
+    const imported = decoded.subjects.map(item => {
+      const s = createDefaultSubject(item.name, item.credits);
+      s.cwMax = item.cwMax;
+      s.finalMax = item.finalMax;
+      s.passPercent = item.passPercent;
+      s.finalMinPercent = item.finalMinPercent;
+      s.events = item.events || [];
+      return s;
+    });
+    if (imported.length > 0) {
+      state.subjects = imported;
+      state.activeSubjectId = imported[0].id;
+      saveState();
+      renderAll();
+      showToast('✅ تم تحميل حزمة الترم بالكامل (' + imported.length + ' مواد)');
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkUrlHashImport() {
+  const hash = window.location.hash || '';
+  if (hash.startsWith('#share=')) {
+    const raw = hash.slice(7).trim();
+    if (!raw) return;
+    try {
+      const decoded = JSON.parse(decodeURIComponent(escape(atob(raw))));
+      if (applyDecodedSharePayload(decoded)) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    } catch (e) {}
+  }
+}
+
+function exportCalendarIcs() {
+  const events = [];
+  state.subjects.forEach(sub => {
+    (sub.events || []).forEach(ev => {
+      if (!ev.tbd && ev.date) {
+        events.push({ subName: sub.name, ...ev });
+      }
+    });
+  });
+
+  if (events.length === 0) {
+    showToast('⚠️ مفيش مواعيد محددة التاريخ لتصديرها للتقويم');
+    return;
+  }
+
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//E3raf Mawqefak//Student Exam Radar//AR',
+    'CALSCALE:GREGORIAN'
+  ];
+
+  events.forEach(ev => {
+    const cleanDate = ev.date.replace(/-/g, '');
+    let dtStart = '';
+    let dtEnd = '';
+    if (ev.time) {
+      const cleanTime = ev.time.replace(':', '') + '00';
+      dtStart = `DTSTART:${cleanDate}T${cleanTime}`;
+      dtEnd = `DTEND:${cleanDate}T${cleanTime}`;
+    } else {
+      dtStart = `DTSTART;VALUE=DATE:${cleanDate}`;
+      dtEnd = `DTEND;VALUE=DATE:${cleanDate}`;
+    }
+    const summary = `${ev.title} - ${ev.subName}`;
+    const desc = ev.note ? ev.note : 'تنبيه من تطبيق اعرف موقفك';
+    lines.push(
+      'BEGIN:VEVENT',
+      `UID:${ev.id}@e3raf-mawqefak`,
+      dtStart,
+      dtEnd,
+      `SUMMARY:${summary}`,
+      `DESCRIPTION:${desc}`,
+      'BEGIN:VALARM',
+      'TRIGGER:-P1D',
+      'ACTION:DISPLAY',
+      `DESCRIPTION:تذكير غداً: ${summary}`,
+      'END:VALARM',
+      'END:VEVENT'
+    );
+  });
+
+  lines.push('END:VCALENDAR');
+  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'exam-schedule.ics';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📅 تم تحميل ملف التقويم (' + events.length + ' مواعيد) — افتحه لإضافته لتقويم الموبايل');
+}
+
+function initPwaOffline() {
+  try {
+    const manifest = {
+      name: 'اعرف موقفك | حاسبة الدرجات والـ GPA',
+      short_name: 'اعرف موقفك',
+      start_url: '.',
+      display: 'standalone',
+      background_color: '#0b1120',
+      theme_color: '#1e3a8a',
+      dir: 'rtl',
+      lang: 'ar',
+      icons: [{
+        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231e3a8a'/%3E%3Ctext x='50' y='67' font-size='54' text-anchor='middle'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E",
+        sizes: '192x192',
+        type: 'image/svg+xml'
+      }]
+    };
+    const mBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+    document.getElementById('pwaManifestLink').href = URL.createObjectURL(mBlob);
+
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      const swCode = `
+        const CACHE_NAME = 'e3raf-mawqefak-cache-v1';
+        self.addEventListener('install', e => {
+          self.skipWaiting();
+        });
+        self.addEventListener('fetch', e => {
+          e.respondWith(
+            fetch(e.request).then(res => {
+              const clone = res.clone();
+              caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+              return res;
+            }).catch(() => caches.match(e.request))
+          );
+        });
+      `;
+      const swBlob = new Blob([swCode], { type: 'application/javascript' });
+      navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+    }
+  } catch (e) {}
+}
+
+// Init
+loadState();
+checkUrlHashImport();
+renderAll();
+initPwaOffline();
+if (!state.onboarded) {
+  state.onboarded = true;
+  saveState();
+  document.getElementById('welcomeModal').classList.add('open');
+}
+</script>
+</body>
+</html>
